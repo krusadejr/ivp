@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_17b5162" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <bpmn:process id="MamaRaisedNoBitches" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_10do7gl</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_10do7gl" sourceRef="StartEvent_1" targetRef="Activity_0a5ik1d" />
+    <bpmn:endEvent id="Event_0ii3yib">
+      <bpmn:incoming>Flow_0oclgdr</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ps8xxa" sourceRef="Activity_0a5ik1d" targetRef="Activity_1g78c29" />
+    <bpmn:userTask id="Activity_0a5ik1d" name="Start">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="userName" label="Henlo, put name" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10do7gl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ps8xxa</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:subProcess id="Activity_1uusgan" name="Additional fun packages">
+      <bpmn:incoming>Flow_0r5gpzm</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oclgdr</bpmn:outgoing>
+      <bpmn:startEvent id="Event_1v620xr">
+        <bpmn:outgoing>Flow_10el85f</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:userTask id="Activity_15wn0n6" name="Ask if additional packages are required">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="funChoice" label="Are additional packages desired? (like city tours and guides)" type="boolean" defaultValue="TRUE" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_10el85f</bpmn:incoming>
+        <bpmn:outgoing>Flow_0p2nsb3</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:exclusiveGateway id="Gateway_1hjeypt" name="Are additional packages required?">
+        <bpmn:incoming>Flow_0p2nsb3</bpmn:incoming>
+        <bpmn:outgoing>Flow_1kj8rwm</bpmn:outgoing>
+        <bpmn:outgoing>Flow_12d60a4</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:endEvent id="Event_06p1ywd">
+        <bpmn:incoming>Flow_1g0r3t7</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:endEvent id="Event_1x0m09f">
+        <bpmn:incoming>Flow_1kj8rwm</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_10el85f" sourceRef="Event_1v620xr" targetRef="Activity_15wn0n6" />
+      <bpmn:sequenceFlow id="Flow_0p2nsb3" sourceRef="Activity_15wn0n6" targetRef="Gateway_1hjeypt" />
+      <bpmn:sequenceFlow id="Flow_1kj8rwm" name="No" sourceRef="Gateway_1hjeypt" targetRef="Event_1x0m09f">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!funChoice}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_12d60a4" name="Yes" sourceRef="Gateway_1hjeypt" targetRef="Activity_1yrda27">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${funChoice}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1gw0rh7" sourceRef="Activity_0rmmj91" targetRef="Activity_1a77n5n" />
+      <bpmn:userTask id="Activity_0rmmj91" name="Show Info about the silver package">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="funNames" label="The Silver packages are provided by these companies: " type="string" defaultValue="${nameCompanies}" />
+            <camunda:formField id="option1" label="${option1Name}" type="string" defaultValue="${option1Silver}" />
+            <camunda:formField id="option2" label="${option2Name}" type="string" defaultValue="${option2Silver}" />
+            <camunda:formField id="optionChoice" label="Select the option: " type="enum">
+              <camunda:value id="option1" name="Option 1" />
+              <camunda:value id="option2" name="Option 2" />
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0x77tg3</bpmn:incoming>
+        <bpmn:outgoing>Flow_1gw0rh7</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:exclusiveGateway id="Gateway_1b5f9ej" name="Which type of package?">
+        <bpmn:incoming>Flow_12whut1</bpmn:incoming>
+        <bpmn:outgoing>Flow_0x77tg3</bpmn:outgoing>
+        <bpmn:outgoing>Flow_09lsw7k</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0x77tg3" sourceRef="Gateway_1b5f9ej" targetRef="Activity_0rmmj91">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${funTypeChoice  == 'silver'}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:userTask id="Activity_0k913zo" name="Show Info about the Gold package">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="funNames" label="The Gold packages are provided by these companies: " type="string" defaultValue="${nameCompanies}" />
+            <camunda:formField id="option1" label="${option1Name}" type="string" defaultValue="${option1Gold}" />
+            <camunda:formField id="option2" label="${option2Name}" type="string" defaultValue="${option2Gold}" />
+            <camunda:formField id="optionChoice" label="Select the option: " type="enum">
+              <camunda:value id="option1" name="Option 1" />
+              <camunda:value id="option2" name="Option 2" />
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_09lsw7k</bpmn:incoming>
+        <bpmn:outgoing>Flow_0o12ls8</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_09lsw7k" sourceRef="Gateway_1b5f9ej" targetRef="Activity_0k913zo">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${funTypeChoice  == 'gold'}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:exclusiveGateway id="Gateway_1rwzd19">
+        <bpmn:incoming>Flow_1rxnujm</bpmn:incoming>
+        <bpmn:incoming>Flow_16fve8p</bpmn:incoming>
+        <bpmn:outgoing>Flow_015mcqk</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_015mcqk" sourceRef="Gateway_1rwzd19" targetRef="Activity_12o3uqc" />
+      <bpmn:sequenceFlow id="Flow_0o12ls8" sourceRef="Activity_0k913zo" targetRef="Activity_0yneucy" />
+      <bpmn:sequenceFlow id="Flow_12whut1" sourceRef="Activity_1k9ex0u" targetRef="Gateway_1b5f9ej" />
+      <bpmn:userTask id="Activity_1k9ex0u" name="Choose the type of package">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="funTypeChoice" label="Choose the type of package: " type="enum">
+              <camunda:value id="silver" name="SILVER: (€20- €50)" />
+              <camunda:value id="gold" name="GOLD: (€60- €120)" />
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1wf12tn</bpmn:incoming>
+        <bpmn:outgoing>Flow_12whut1</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_1rxnujm" sourceRef="Activity_1a77n5n" targetRef="Gateway_1rwzd19" />
+      <bpmn:scriptTask id="Activity_1a77n5n" name="Add to the price" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1gw0rh7</bpmn:incoming>
+        <bpmn:outgoing>Flow_1rxnujm</bpmn:outgoing>
+        <bpmn:script>
+let addPrice = 0; 
+
+if (optionChoice === 'option1') {
+	addPrice = addprice + option1SilverPrice;
+} else if (optionChoice === 'option2') {
+	addPrice = addPrice + option2SilverPrice; 
+}
+
+console.log("addPrice is: ", addPrice);
+execution.setVariable('addPrice', addPrice);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:serviceTask id="Activity_1yrda27" name="Get the details about the fun additional packages">
+        <bpmn:extensionElements>
+          <camunda:connector>
+            <camunda:inputOutput>
+              <camunda:inputParameter name="method">GET</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://localhost:44000/hotels/berlin/tour/travels/guides/options</camunda:inputParameter>
+              <camunda:outputParameter name="option1Silver">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option1Silver =  "PRICE: €" + parser.option1.silver.price + "-&gt; " + parser.option1.silver.services;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="nameCompanies">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+infoOptions = parser.option1.name + " AND " + parser.option2.name;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option1Name">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option1Name = parser.option1.name;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2Name">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option2Name = parser.option2.name;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2Silver">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option2Silver =  "PRICE: €" + parser.option2.silver.price + "-&gt; " + parser.option2.silver.services;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2Gold">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option2Gold =  "PRICE: €" + parser.option2.gold.price + "-&gt; " + parser.option2.gold.services;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option1Gold">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option1Gold =  "PRICE: €" + parser.option1.gold.price + "-&gt; " + parser.option1.gold.services;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option1SilverPrice">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option1SilverPrice =  parser.option1.silver.price;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option1GoldPrice">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option1GoldPrice = parser.option1.gold.price;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2SilverPrice">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option2SilverPrice =  parser.option2.silver.price;</camunda:script>
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2GoldPrice">
+                <camunda:script scriptFormat="javascript" />
+              </camunda:outputParameter>
+              <camunda:outputParameter name="option2GoldPrice">
+                <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
+var parser = JSON.parse(response);
+
+option2GoldPrice = parser.option2.gold.price;</camunda:script>
+              </camunda:outputParameter>
+            </camunda:inputOutput>
+            <camunda:connectorId>http-connector</camunda:connectorId>
+          </camunda:connector>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_12d60a4</bpmn:incoming>
+        <bpmn:outgoing>Flow_1wf12tn</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_1wf12tn" sourceRef="Activity_1yrda27" targetRef="Activity_1k9ex0u" />
+      <bpmn:sequenceFlow id="Flow_1g0r3t7" sourceRef="Activity_12o3uqc" targetRef="Event_06p1ywd" />
+      <bpmn:userTask id="Activity_12o3uqc" name="Show the additional prices">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="showMessage" label="The additional prices due to tour and travels are (in €): " type="long" defaultValue="${addPrice}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_015mcqk</bpmn:incoming>
+        <bpmn:outgoing>Flow_1g0r3t7</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:scriptTask id="Activity_0yneucy" name="Add to the price" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0o12ls8</bpmn:incoming>
+        <bpmn:outgoing>Flow_16fve8p</bpmn:outgoing>
+        <bpmn:script>let addPrice = 0; 
+
+if (optionChoice === 'option1') {
+	addPrice = addprice + option1GoldPrice;
+} else if (optionChoice === 'option2') {
+	addPrice = addPrice + option2GoldPrice; 
+}
+
+console.log("addPrice is: ", addPrice);
+execution.setVariable('addPrice', addPrice);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_16fve8p" sourceRef="Activity_0yneucy" targetRef="Gateway_1rwzd19" />
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="Flow_0oclgdr" sourceRef="Activity_1uusgan" targetRef="Event_0ii3yib" />
+    <bpmn:serviceTask id="Activity_1g78c29" name="Get the details about the fun additional packages">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:44000/hotels/berlin/tour/travels/guides/options</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ps8xxa</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r5gpzm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0r5gpzm" sourceRef="Activity_1g78c29" targetRef="Activity_1uusgan" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MamaRaisedNoBitches">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ii3yib_di" bpmnElement="Event_0ii3yib">
+        <dc:Bounds x="1042" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p4b56n_di" bpmnElement="Activity_0a5ik1d">
+        <dc:Bounds x="290" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_16eveio" bpmnElement="Activity_1g78c29" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="460" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01sl4up_di" bpmnElement="Activity_1uusgan" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="690" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_10do7gl_di" bpmnElement="Flow_10do7gl">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="290" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ps8xxa_di" bpmnElement="Flow_0ps8xxa">
+        <di:waypoint x="390" y="120" />
+        <di:waypoint x="460" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oclgdr_di" bpmnElement="Flow_0oclgdr">
+        <di:waypoint x="790" y="120" />
+        <di:waypoint x="1042" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r5gpzm_di" bpmnElement="Flow_0r5gpzm">
+        <di:waypoint x="560" y="120" />
+        <di:waypoint x="690" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_0iv39t6">
+    <bpmndi:BPMNPlane id="BPMNPlane_1jh25nt" bpmnElement="Activity_1uusgan">
+      <bpmndi:BPMNShape id="Event_1v620xr_di" bpmnElement="Event_1v620xr" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="180" y="132" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0i1ui0s_di" bpmnElement="Activity_15wn0n6" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="268" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1hjeypt_di" bpmnElement="Gateway_1hjeypt" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="423" y="125" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="414" y="80" width="67" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06p1ywd_di" bpmnElement="Event_06p1ywd" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="1712" y="132" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1x0m09f_di" bpmnElement="Event_1x0m09f" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="580" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rn34d8_di" bpmnElement="Activity_0rmmj91" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1100" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1b5f9ej_di" bpmnElement="Gateway_1b5f9ej" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="965" y="125" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="957" y="95" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_06mvnef" bpmnElement="Activity_0k913zo" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1100" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1rwzd19_di" bpmnElement="Gateway_1rwzd19" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="1485" y="125" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0r4cezd_di" bpmnElement="Activity_1k9ex0u" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="780" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15jci3g_di" bpmnElement="Activity_1a77n5n" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1280" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_15hrdvh" bpmnElement="Activity_1yrda27" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="588" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1x1myk2_di" bpmnElement="Activity_12o3uqc" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1570" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_147h0z9" bpmnElement="Activity_0yneucy" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1290" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_10el85f_di" bpmnElement="Flow_10el85f">
+        <di:waypoint x="216" y="150" />
+        <di:waypoint x="268" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p2nsb3_di" bpmnElement="Flow_0p2nsb3">
+        <di:waypoint x="368" y="150" />
+        <di:waypoint x="423" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kj8rwm_di" bpmnElement="Flow_1kj8rwm">
+        <di:waypoint x="448" y="175" />
+        <di:waypoint x="448" y="260" />
+        <di:waypoint x="580" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="456" y="215" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12d60a4_di" bpmnElement="Flow_12d60a4">
+        <di:waypoint x="473" y="150" />
+        <di:waypoint x="588" y="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="523" y="132" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gw0rh7_di" bpmnElement="Flow_1gw0rh7">
+        <di:waypoint x="1200" y="150" />
+        <di:waypoint x="1280" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0x77tg3_di" bpmnElement="Flow_0x77tg3">
+        <di:waypoint x="1015" y="150" />
+        <di:waypoint x="1100" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09lsw7k_di" bpmnElement="Flow_09lsw7k">
+        <di:waypoint x="990" y="175" />
+        <di:waypoint x="990" y="270" />
+        <di:waypoint x="1100" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_015mcqk_di" bpmnElement="Flow_015mcqk">
+        <di:waypoint x="1535" y="150" />
+        <di:waypoint x="1570" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o12ls8_di" bpmnElement="Flow_0o12ls8">
+        <di:waypoint x="1200" y="270" />
+        <di:waypoint x="1290" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12whut1_di" bpmnElement="Flow_12whut1">
+        <di:waypoint x="880" y="150" />
+        <di:waypoint x="965" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rxnujm_di" bpmnElement="Flow_1rxnujm">
+        <di:waypoint x="1380" y="150" />
+        <di:waypoint x="1485" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wf12tn_di" bpmnElement="Flow_1wf12tn">
+        <di:waypoint x="688" y="150" />
+        <di:waypoint x="780" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g0r3t7_di" bpmnElement="Flow_1g0r3t7">
+        <di:waypoint x="1670" y="150" />
+        <di:waypoint x="1712" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16fve8p_di" bpmnElement="Flow_16fve8p">
+        <di:waypoint x="1390" y="270" />
+        <di:waypoint x="1510" y="270" />
+        <di:waypoint x="1510" y="175" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,212 @@
+{
+  "100": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "101": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "Gordon Freeman",
+    "status": "occupied"
+  },
+  "102": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "103": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "104": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "105": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "106": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "107": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "108": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "109": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "110": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "111": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "112": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "113": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "114": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "115": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "116": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "117": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "118": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "119": {
+    "roomtype": "single",
+    "price": 80,
+    "guest": "none",
+    "status": "free"
+  },
+  "200": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "201": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "202": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "203": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "204": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "205": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "206": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "207": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "208": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "209": {
+    "roomtype": "double",
+    "price": 120,
+    "guest": "none",
+    "status": "free"
+  },
+  "300": {
+    "roomtype": "suite",
+    "price": 250,
+    "guest": "none",
+    "status": "free"
+  },
+  "301": {
+    "roomtype": "suite",
+    "price": 250,
+    "guest": "none",
+    "status": "free"
+  },
+  "302": {
+    "roomtype": "suite",
+    "price": 250,
+    "guest": "none",
+    "status": "free"
+  },
+  "303": {
+    "roomtype": "suite",
+    "price": 250,
+    "guest": "none",
+    "status": "free"
+  },
+  "304": {
+    "roomtype": "suite",
+    "price": 250,
+    "guest": "none",
+    "status": "free"
+  }
+}

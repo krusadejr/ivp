@@ -1,0 +1,24 @@
+{
+    "option1" : {
+        "name" : "5 Star Berlin Travel Guides", 
+        "silver" : {
+            "services" : "City Tour & Berlin Archeological Museum guided tour", 
+            "price" : 20
+        }, 
+        "gold" : {
+            "services" : "City Tour + 2 Museums of choice & Berlin Theater guided Tour", 
+            "price" : 100
+        }
+    }, 
+    "option2" : {
+        "name" : "Charlie Tours", 
+        "silver" : {
+            "services" : "City Tour & Berlin history tour", 
+            "price" : 40
+        }, 
+        "gold" : {
+            "services" : "City Tour, Berlin history & Checkpoint Charlie tour", 
+            "price" : 80
+        }  
+    }
+}
