@@ -2,9 +2,9 @@
   "100": {
     "roomtype": "single",
     "price": 80,
-    "guest": "Ron Swanson",
+    "guest": "Ice Cube",
     "status": "occupied",
-    "checkOut": "2024-07-14"
+    "checkOut": "2024-07-13"
   },
   "101": {
     "roomtype": "single",
