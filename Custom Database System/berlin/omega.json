@@ -2,9 +2,9 @@
   "100": {
     "roomtype": "single",
     "price": 80,
-    "guest": "Ice Cube",
+    "guest": "Ron Swanson",
     "status": "occupied",
-    "checkOut": "2024-07-13"
+    "checkOut": "2024-07-19"
   },
   "101": {
     "roomtype": "single",
@@ -245,17 +245,18 @@
     "checkOut": "2024-03-19"
   },
   "roomDetails": {
+    "noOfRooms": 35,
     "priceSingle": 80,
     "priceDouble": 120,
     "priceSuite": 250
   },
   "carOptions": {
     "ecoCar": {
-      "carName": "Audi",
+      "carName": "Honda, Hyundai",
       "carPrice": 30
     },
     "deluxCar": {
-      "carName": "Ford",
+      "carName": "Audi, Ford",
       "carPrice": 100
     }
   },
