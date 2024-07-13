@@ -587,7 +587,7 @@ app.get('/hotels/:location/tour/travels/guides/options', (req, res) => {
 
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            res.status(500).send(`Error reading tours.json file`); 
+            res.status(500).send(`Error reading ${tour}.json file`); 
             return;
         }
 
@@ -598,101 +598,7 @@ app.get('/hotels/:location/tour/travels/guides/options', (req, res) => {
     });
 });
 
-//PUT_Generating Invoices in the JSON==============================================================================================\
-app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => {
-    const filePath = `invoices/invoices.json`; 
-    let { name, location, hotel, packChoice, guests, occupiedRoomList, noOfRooms, userDate, checkOut, nights, totalPrice, discountedPrice, finalPrice, classChoice, carChoice, funTypeChoice, addPrice, optionChoice } = req.body;
-
-    
-
-    // Function to generate invoice number
-    function generateInvoiceNumber(name, location, hotel, existingInvoices) {
-        let secondName = name.split(' ')[1] || '';
-
-        if (secondName.length === 0) {
-            secondName = 'YYY';
-        } else if (secondName.length < 3) {
-            while (secondName.length < 3) {
-                secondName += 'Y';
-            }
-        }
-
-        let zifferLocation = location.slice(0, 2).toUpperCase();
-        let zifferHotel = hotel.slice(0, 2).toUpperCase();
-
-        let ziffer = name[0].toUpperCase();
-        let zifferSecondName = secondName.slice(0, 3).toUpperCase();
-
-        let tempZiffer = ziffer + zifferSecondName;
-
-        let baseInvoiceNumber = `${tempZiffer}-${zifferLocation}${zifferHotel}`;
-
-        let highestNumber = 0;
-
-        for (let key in existingInvoices) {
-            if (key.startsWith(baseInvoiceNumber)) {
-                let numPart = key.split('-')[2];
-                let num = parseInt(numPart);
-                if (!isNaN(num) && num > highestNumber) {
-                    highestNumber = num;
-                }
-            }
-        }
-
-        return `${baseInvoiceNumber}-${('000' + (highestNumber + 1)).slice(-4)}`;
-    }
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err && err.code !== 'ENOENT') {
-            res.status(500).send(`Error reading invoices.json file`);
-            return;
-        }
-
-        let invoices = {};
-        if (data) {
-            try {
-                invoices = JSON.parse(data);
-            } catch (e) {
-                res.status(500).send('Error parsing JSON data from file');
-                return;
-            }
-        }
-
-        let invoiceNumber = generateInvoiceNumber(name, location, hotel, invoices);
-
-        invoices[invoiceNumber] = {
-            name,
-            location,
-            hotel,
-            packChoice,
-            guests, 
-            occupiedRoomList, 
-            noOfRooms, 
-            userDate, 
-            checkOut, 
-            nights, 
-            totalPrice, 
-            discountedPrice, 
-            finalPrice,
-            classChoice, 
-            carChoice, 
-            funTypeChoice,
-            addPrice,
-            optionChoice
-        };
-
-        
-
-        fs.writeFile(filePath, JSON.stringify(invoices, null, 2), (err) => {
-            if (err) {
-                res.status(500).send('Error writing to invoices.json file');
-                return;
-            }
-
-            res.status(200).send({ invoiceNumber });
-        });
-    });
-});
+//PUT_Generating Invoices==============================================================================================
 
 //=====================================================================================================================
 

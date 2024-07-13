@@ -1,0 +1,22 @@
+{
+  "RSWA-BEOM-0001": {
+    "name": "Ron Swanson",
+    "location": "berlin",
+    "hotel": "omega",
+    "packChoice": "pro",
+    "guests": 1,
+    "occupiedRoomList": "[\"100\"]",
+    "noOfRooms": 1,
+    "userDate": "Fri Jul 12 00:00:00 CEST 2024",
+    "checkOut": "Fri Jul 19 00:00:00 CEST 2024",
+    "nights": 7,
+    "totalPrice": "800",
+    "discountedPrice": "720.0",
+    "finalPrice": 740,
+    "classChoice": "classTwo",
+    "carChoice": "ecoCar",
+    "funTypeChoice": "silver",
+    "addPrice": 20,
+    "optionChoice": "option1"
+  }
+}
