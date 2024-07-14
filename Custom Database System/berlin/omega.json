@@ -4,7 +4,7 @@
     "price": 80,
     "guest": "Ron Swanson",
     "status": "occupied",
-    "checkOut": "2024-07-19"
+    "checkOut": "2024-07-22"
   },
   "101": {
     "roomtype": "single",
@@ -142,9 +142,9 @@
   "200": {
     "roomtype": "double",
     "price": 120,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
+    "guest": "Ron Swanson",
+    "status": "occupied",
+    "checkOut": "2024-07-22"
   },
   "201": {
     "roomtype": "double",

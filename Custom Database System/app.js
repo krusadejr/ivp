@@ -698,14 +698,36 @@ app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => 
 
 //GET_Dealing with an HTML Page ============================================================================
 app.get('/generate-invoice', (req, res) => {
-    const { name, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, classChoice, carChoice } = req.query;
+    let { invoiceNumber, name, location, hotel, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, showClassChoice, showClassPrice, station, showCarChoice, showCarPrice, showCarName, funTypeChoice, addPrice, funActivities, company, companyAddress, companyPhone, finalPrice } = req.query;
+
+    //Date Calculation for invoice generation
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    let day = String(today.getDate()).padStart(2, '0');
+    let formattedDate = `${year}-${month}-${day}`;
+
+    //Variable Configurations for a much more formatted display
+
+    //1 Name of the location, hotel and the optionChoice
+    packChoice = packChoice.charAt(0).toUpperCase() + packChoice.slice(1);
+    hotel = hotel.charAt(0).toUpperCase() + hotel.slice(1);
+    location = location.charAt(0).toUpperCase() + location.slice(1);
+    funTypeChoice = funTypeChoice.charAt(0).toUpperCase() + funTypeChoice.slice(1);
+
+    //2 Make the funActivities a bit more compact
+    funActivities = funActivities.substring(13); // 13 is the length of "PRICE: €20-> "and so on
+
+    
+    
+    
 
     const htmlContent = `
        <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Invoice</title>
+		<title>Invoice for ${name}</title>
 
 		<style>
 			.invoice-box {
@@ -817,8 +839,8 @@ app.get('/generate-invoice', (req, res) => {
 								</td>
 
 								<td>
-									Invoice #: (intentionally blank)<br />
-									Created: (check) January 1, 2023<br />
+									Invoice No.: ${invoiceNumber}<br />
+									Created: ${formattedDate}<br />
 									
 								</td>
 							</tr>
@@ -832,6 +854,7 @@ app.get('/generate-invoice', (req, res) => {
 							<tr>
 								<td>
 									A.S.A.P. Reisebüro International<br />
+                                    Geschäftsführer (Owner): Kai Jander<br />
 									Magdeburgerstraße 50<br />
 									Brandenburg an der Havel, BRB 14770
 								</td>
@@ -848,27 +871,43 @@ app.get('/generate-invoice', (req, res) => {
 
 				<tr class="heading"><td>Hotel Booking</td> <td></td></tr>
 				<tr class="item"><td>Name</td>					<td>${name}</td></tr>
+                <tr class="item"><td>Location of the hotel</td>					<td>${location}</td></tr>
+                <tr class="item"><td>Hotel</td>					<td>${hotel}</td></tr>
 				<tr class="item"><td>Package Selected</td>		<td>${packChoice}</td></tr>
 				<tr class="item"><td>Number of Guests</td>		<td>${guests}</td></tr>
 				<tr class="item"><td>Rooms booked</td>			<td>${occupiedRoomList}</td></tr>
 				<tr class="item"><td>Check-in Date</td>			<td>${userDate}</td></tr>
 				<tr class="item"><td>Check-out date</td>		<td>${checkOut}</td></tr>
 				<tr class="item"><td>Number of days</td>		<td>${nights}</td></tr>
-				<tr class="item"><td>Total Price(without discount)</td>		<td>${totalPrice}</td></tr>
+				<tr class="item"><td>Total Price(without discount)</td>		<td>€${totalPrice}</td></tr>
+                <tr class="item"><td>Discounted Price (including train ticket and rental car price; see below) </td>		<td>€${discountedPrice}</td></tr>
 
 				<tr class="heading"><td>Train Booking Details</td> <td></td></tr>
-				<tr class="item"><td>Type of train ticket</td>	<td>${classChoice}</td></tr>
+				<tr class="item"><td>Type of train ticket</td>	<td>${showClassChoice}</td></tr>
+                <tr class="item"><td>Cost of the train ticket (per guest)</td>	<td>€${showClassPrice}</td></tr>
+                <tr class="item"><td>Nearest Station to the hotel</td>	<td>${station}</td></tr>
 
 				<tr class="heading"><td>Rental Car Details</td> <td></td></tr>
-				<tr class="item"><td>Type of rental car</td>	<td>${carChoice}</td></tr>
+				<tr class="item"><td>Type of rental car</td>	<td>${showCarChoice}</td></tr>
+                <tr class="item"><td>Rental Car Options</td>	<td>${showCarName}</td></tr>
+                <tr class="item"><td>Price of the rental Car (per day)</td>	<td>€${showCarPrice}</td></tr>
+                
+
+                <tr class="heading"><td>Additional Fun Activities (Additional Prices)</td> <td></td></tr>
+				<tr class="item"><td>Package Selected</td>	<td>${funTypeChoice}</td></tr>
+                <tr class="item"><td>Provided by</td>	<td>${company}</td></tr>
+                <tr class="item"><td>Provider's Address</td>	<td>${companyAddress}</td></tr>
+                <tr class="item"><td>Provider's Contact</td>	<td>${companyPhone}</td></tr>
+                <tr class="item"><td>Activities Included</td>	<td>${funActivities}</td></tr>
+                <tr class="item"><td>Additional Prices</td>	<td>€${addPrice}</td></tr>
 				
 				
 
 
 				<tr class="total">
-					<td>Final Price</td>
+					<td>Final Price (Discounted Price + Additional Prices due to Activities)</td>
 
-					<td>${discountedPrice}</td>
+					<td>€${finalPrice}</td>
 				</tr>
 			</table>
 		</div>
@@ -876,7 +915,7 @@ app.get('/generate-invoice', (req, res) => {
 </html>
     `;
 
-    const fileName = `invoice_${name}.html`;
+    const fileName = `invoice_${invoiceNumber}.html`;
     const filePath = `invoices/${fileName}`;
 
     // Write the HTML content to a file

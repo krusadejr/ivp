@@ -1,0 +1,192 @@
+
+       <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Invoice for Ron Swanson</title>
+
+		<style>
+			.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+									<img
+										src="logo-banner.png"
+										style="width: 100%; max-width: 300px"
+									/>
+								</td>
+
+								<td>
+									Invoice No.: RSWA-BEOM-0016<br />
+									Created: 2024-07-15<br />
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+									A.S.A.P. Reisebüro International<br />
+                                    Geschäftsführer (Owner): Kai Jander<br />
+									Magdeburgerstraße 50<br />
+									Brandenburg an der Havel, BRB 14770
+								</td>
+
+								<td>
+									<br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				
+
+				<tr class="heading"><td>Hotel Booking</td> <td></td></tr>
+				<tr class="item"><td>Name</td>					<td>Ron Swanson</td></tr>
+                <tr class="item"><td>Location of the hotel</td>					<td>Berlin</td></tr>
+                <tr class="item"><td>Hotel</td>					<td>Omega</td></tr>
+				<tr class="item"><td>Package Selected</td>		<td>None</td></tr>
+				<tr class="item"><td>Number of Guests</td>		<td>1</td></tr>
+				<tr class="item"><td>Rooms booked</td>			<td>100</td></tr>
+				<tr class="item"><td>Check-in Date</td>			<td>Mon Jul 15 00:00:00 CEST 2024</td></tr>
+				<tr class="item"><td>Check-out date</td>		<td>Mon Jul 22 00:00:00 CEST 2024</td></tr>
+				<tr class="item"><td>Number of days</td>		<td>7</td></tr>
+				<tr class="item"><td>Total Price(without discount)</td>		<td>€1290</td></tr>
+                <tr class="item"><td>Discounted Price (including train ticket and rental car price; see below) </td>		<td>€1290</td></tr>
+
+				<tr class="heading"><td>Train Booking Details</td> <td></td></tr>
+				<tr class="item"><td>Type of train ticket</td>	<td>IInd</td></tr>
+                <tr class="item"><td>Cost of the train ticket (per guest)</td>	<td>€30</td></tr>
+                <tr class="item"><td>Nearest Station to the hotel</td>	<td>Berlin Hauptbahnhof</td></tr>
+
+				<tr class="heading"><td>Rental Car Details</td> <td></td></tr>
+				<tr class="item"><td>Type of rental car</td>	<td>Deluxe</td></tr>
+                <tr class="item"><td>Rental Car Options</td>	<td>Audi, Ford</td></tr>
+                <tr class="item"><td>Price of the rental Car (per day)</td>	<td>€100</td></tr>
+                
+
+                <tr class="heading"><td>Additional Fun Activities (Additional Prices)</td> <td></td></tr>
+				<tr class="item"><td>Package Selected</td>	<td>Silver</td></tr>
+                <tr class="item"><td>Provided by</td>	<td>5 Star Berlin Travel Guides</td></tr>
+                <tr class="item"><td>Provider's Address</td>	<td>Zanderstraße 10, BRB-14770</td></tr>
+                <tr class="item"><td>Provider's Contact</td>	<td>+49-92345678910</td></tr>
+                <tr class="item"><td>Activities Included</td>	<td>City Tour & Berlin Archeological Museum guided tour</td></tr>
+                <tr class="item"><td>Additional Prices</td>	<td>€20</td></tr>
+				
+				
+
+
+				<tr class="total">
+					<td>Final Price (Discounted Price + Additional Prices due to Activities)</td>
+
+					<td>€1310</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
+    

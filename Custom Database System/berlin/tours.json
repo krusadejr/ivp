@@ -1,6 +1,8 @@
 {
     "option1" : {
         "name" : "5 Star Berlin Travel Guides", 
+        "address" : "Zanderstraße 10, BRB-14770",
+        "phone" : "+49-92345678910",
         "silver" : {
             "services" : "City Tour & Berlin Archeological Museum guided tour", 
             "price" : 20
@@ -12,6 +14,8 @@
     }, 
     "option2" : {
         "name" : "Charlie Tours", 
+        "address" : "Askanierring 41, BER-13550",
+        "phone" : "+49-88234678910",
         "silver" : {
             "services" : "City Tour & Berlin history tour", 
             "price" : 40
