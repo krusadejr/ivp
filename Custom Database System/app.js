@@ -6,7 +6,7 @@ let fs = require('fs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use('/invoices', express.static(__dirname + '/invoices'));
 
 //BASIC CALL__________________________________________________________________________________________
 app.get('/', function(req, res){
@@ -698,7 +698,7 @@ app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => 
 
 //GET_Dealing with an HTML Page ============================================================================
 app.get('/generate-invoice', (req, res) => {
-    let { invoiceNumber, name, location, hotel, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, showClassChoice, showClassPrice, station, showCarChoice, showCarPrice, showCarName, funTypeChoice, addPrice, funActivities, company, companyAddress, companyPhone, finalPrice } = req.query;
+    let { invoiceNumber, name, location, hotel, hotelAddress, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, showClassChoice, showClassPrice, station, showCarChoice, showCarPrice, showCarName, funTypeChoice, addPrice, funActivities, company, companyAddress, companyPhone, typeInstallmentOption, monthlyInstallment, interest, paymentOption, finalPrice } = req.query;
 
     //Date Calculation for invoice generation
     let today = new Date();
@@ -714,9 +714,17 @@ app.get('/generate-invoice', (req, res) => {
     hotel = hotel.charAt(0).toUpperCase() + hotel.slice(1);
     location = location.charAt(0).toUpperCase() + location.slice(1);
     funTypeChoice = funTypeChoice.charAt(0).toUpperCase() + funTypeChoice.slice(1);
+    paymentOption = paymentOption.charAt(0).toUpperCase() + paymentOption.slice(1);
 
     //2 Make the funActivities a bit more compact
     funActivities = funActivities.substring(13); // 13 is the length of "PRICE: €20-> "and so on
+
+    //3 Make the typeInstallmentOption more presentable
+    if (typeInstallmentOption === "months6") {
+        typeInstallmentOption = "6 Months"; 
+    } else if (typeInstallmentOption === "months3") {
+        typeInstallmentOption = "3 Months";
+    }
 
     
     
@@ -869,37 +877,48 @@ app.get('/generate-invoice', (req, res) => {
 
 				
 
-				<tr class="heading"><td>Hotel Booking</td> <td></td></tr>
+				<tr class="heading"><td>Hotel Booking (incl. 19% VAT)</td> <td></td></tr>
 				<tr class="item"><td>Name</td>					<td>${name}</td></tr>
                 <tr class="item"><td>Location of the hotel</td>					<td>${location}</td></tr>
                 <tr class="item"><td>Hotel</td>					<td>${hotel}</td></tr>
+                <tr class="item"><td>Address of the hotel</td>					<td>${hotelAddress}</td></tr>
 				<tr class="item"><td>Package Selected</td>		<td>${packChoice}</td></tr>
 				<tr class="item"><td>Number of Guests</td>		<td>${guests}</td></tr>
 				<tr class="item"><td>Rooms booked</td>			<td>${occupiedRoomList}</td></tr>
 				<tr class="item"><td>Check-in Date</td>			<td>${userDate}</td></tr>
 				<tr class="item"><td>Check-out date</td>		<td>${checkOut}</td></tr>
 				<tr class="item"><td>Number of days</td>		<td>${nights}</td></tr>
-				<tr class="item"><td>Total Price(without discount)</td>		<td>€${totalPrice}</td></tr>
-                <tr class="item"><td>Discounted Price (including train ticket and rental car price; see below) </td>		<td>€${discountedPrice}</td></tr>
+				
 
-				<tr class="heading"><td>Train Booking Details</td> <td></td></tr>
+				<tr class="heading"><td>Train Booking Details (incl. 7% VAT)</td> <td></td></tr>
 				<tr class="item"><td>Type of train ticket</td>	<td>${showClassChoice}</td></tr>
                 <tr class="item"><td>Cost of the train ticket (per guest)</td>	<td>€${showClassPrice}</td></tr>
                 <tr class="item"><td>Nearest Station to the hotel</td>	<td>${station}</td></tr>
 
-				<tr class="heading"><td>Rental Car Details</td> <td></td></tr>
+				<tr class="heading"><td>Rental Car Details (incl. 7% VAT)</td> <td></td></tr>
 				<tr class="item"><td>Type of rental car</td>	<td>${showCarChoice}</td></tr>
                 <tr class="item"><td>Rental Car Options</td>	<td>${showCarName}</td></tr>
                 <tr class="item"><td>Price of the rental Car (per day)</td>	<td>€${showCarPrice}</td></tr>
                 
 
-                <tr class="heading"><td>Additional Fun Activities (Additional Prices)</td> <td></td></tr>
+                <tr class="heading"><td>Additional Fun Activities (Additional Prices; incl. 7% VAT)</td> <td></td></tr>
 				<tr class="item"><td>Package Selected</td>	<td>${funTypeChoice}</td></tr>
                 <tr class="item"><td>Provided by</td>	<td>${company}</td></tr>
                 <tr class="item"><td>Provider's Address</td>	<td>${companyAddress}</td></tr>
                 <tr class="item"><td>Provider's Contact</td>	<td>${companyPhone}</td></tr>
                 <tr class="item"><td>Activities Included</td>	<td>${funActivities}</td></tr>
+                
+
+                <tr class="heading"><td>Monthly Installment Options</td> <td></td></tr>
+				<tr class="item"><td>Monthly Installment Duration</td>	<td>${typeInstallmentOption}</td></tr>
+                <tr class="item"><td>Interest Rate</td>	<td>${interest}</td></tr>
+                <tr class="item"><td>Monthly Installment</td>	<td>€${monthlyInstallment}</td></tr>
+
+                <tr class="heading"><td>Payment Checkout Details</td> <td></td></tr>
+                <tr class="item"><td>Total Price(without discount)</td>		<td>€${totalPrice}</td></tr>
+                <tr class="item"><td>Discounted Price (including train ticket and rental car price; see above) </td>		<td>€${discountedPrice}</td></tr>
                 <tr class="item"><td>Additional Prices</td>	<td>€${addPrice}</td></tr>
+				<tr class="item"><td>Mode of Payment</td>	<td>${paymentOption}</td></tr>
 				
 				
 

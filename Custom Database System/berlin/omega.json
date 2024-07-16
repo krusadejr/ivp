@@ -2,9 +2,9 @@
   "100": {
     "roomtype": "single",
     "price": 80,
-    "guest": "Ron Swanson",
+    "guest": "Bruce Wayne",
     "status": "occupied",
-    "checkOut": "2024-07-22"
+    "checkOut": "2024-07-17"
   },
   "101": {
     "roomtype": "single",
@@ -142,9 +142,9 @@
   "200": {
     "roomtype": "double",
     "price": 120,
-    "guest": "Ron Swanson",
-    "status": "occupied",
-    "checkOut": "2024-07-22"
+    "guest": "none",
+    "status": "free",
+    "checkOut": "2024-03-19"
   },
   "201": {
     "roomtype": "double",
@@ -245,6 +245,7 @@
     "checkOut": "2024-03-19"
   },
   "roomDetails": {
+    "hotelAddress": "Marzahniger Straße 41",
     "noOfRooms": 35,
     "priceSingle": 80,
     "priceDouble": 120,
