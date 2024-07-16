@@ -736,6 +736,7 @@ app.get('/generate-invoice', (req, res) => {
 	<head>
 		<meta charset="utf-8" />
 		<title>Invoice for ${name}</title>
+        <link rel="icon" href="workingfavicon.png" type="image/png">
 
 		<style>
 			.invoice-box {

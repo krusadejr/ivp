@@ -6,7 +6,7 @@ let fs = require('fs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use('/invoices', express.static(__dirname + '/invoices'));
 
 //BASIC CALL__________________________________________________________________________________________
 app.get('/', function(req, res){
@@ -587,7 +587,7 @@ app.get('/hotels/:location/tour/travels/guides/options', (req, res) => {
 
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            res.status(500).send(`Error reading ${tour}.json file`); 
+            res.status(500).send(`Error reading tours.json file`); 
             return;
         }
 
@@ -598,20 +598,144 @@ app.get('/hotels/:location/tour/travels/guides/options', (req, res) => {
     });
 });
 
-//PUT_Generating Invoices==============================================================================================
+//PUT_Generating Invoices in the JSON==============================================================================================\
+app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => {
+    const filePath = `invoices/invoices.json`; 
+    let { name, location, hotel, packChoice, guests, occupiedRoomList, noOfRooms, userDate, checkOut, nights, totalPrice, discountedPrice, finalPrice, classChoice, carChoice, funTypeChoice, addPrice, optionChoice } = req.body;
+
+    
+
+    // Function to generate invoice number
+    function generateInvoiceNumber(name, location, hotel, existingInvoices) {
+        let secondName = name.split(' ')[1] || '';
+
+        if (secondName.length === 0) {
+            secondName = 'YYY';
+        } else if (secondName.length < 3) {
+            while (secondName.length < 3) {
+                secondName += 'Y';
+            }
+        }
+
+        let zifferLocation = location.slice(0, 2).toUpperCase();
+        let zifferHotel = hotel.slice(0, 2).toUpperCase();
+
+        let ziffer = name[0].toUpperCase();
+        let zifferSecondName = secondName.slice(0, 3).toUpperCase();
+
+        let tempZiffer = ziffer + zifferSecondName;
+
+        let baseInvoiceNumber = `${tempZiffer}-${zifferLocation}${zifferHotel}`;
+
+        let highestNumber = 0;
+
+        for (let key in existingInvoices) {
+            if (key.startsWith(baseInvoiceNumber)) {
+                let numPart = key.split('-')[2];
+                let num = parseInt(numPart);
+                if (!isNaN(num) && num > highestNumber) {
+                    highestNumber = num;
+                }
+            }
+        }
+
+        return `${baseInvoiceNumber}-${('000' + (highestNumber + 1)).slice(-4)}`;
+    }
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err && err.code !== 'ENOENT') {
+            res.status(500).send(`Error reading invoices.json file`);
+            return;
+        }
+
+        let invoices = {};
+        if (data) {
+            try {
+                invoices = JSON.parse(data);
+            } catch (e) {
+                res.status(500).send('Error parsing JSON data from file');
+                return;
+            }
+        }
+
+        let invoiceNumber = generateInvoiceNumber(name, location, hotel, invoices);
+
+        invoices[invoiceNumber] = {
+            name,
+            location,
+            hotel,
+            packChoice,
+            guests, 
+            occupiedRoomList, 
+            noOfRooms, 
+            userDate, 
+            checkOut, 
+            nights, 
+            totalPrice, 
+            discountedPrice, 
+            finalPrice,
+            classChoice, 
+            carChoice, 
+            funTypeChoice,
+            addPrice,
+            optionChoice
+        };
+
+        
+
+        fs.writeFile(filePath, JSON.stringify(invoices, null, 2), (err) => {
+            if (err) {
+                res.status(500).send('Error writing to invoices.json file');
+                return;
+            }
+
+            res.status(200).send({ invoiceNumber });
+        });
+    });
+});
 
 //=====================================================================================================================
 
 //GET_Dealing with an HTML Page ============================================================================
 app.get('/generate-invoice', (req, res) => {
-    const { name, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, classChoice, carChoice } = req.query;
+    let { invoiceNumber, name, location, hotel, hotelAddress, packChoice, guests, occupiedRoomList, userDate, checkOut, nights, totalPrice, discountedPrice, showClassChoice, showClassPrice, station, showCarChoice, showCarPrice, showCarName, funTypeChoice, addPrice, funActivities, company, companyAddress, companyPhone, typeInstallmentOption, monthlyInstallment, interest, paymentOption, finalPrice } = req.query;
+
+    //Date Calculation for invoice generation
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    let day = String(today.getDate()).padStart(2, '0');
+    let formattedDate = `${year}-${month}-${day}`;
+
+    //Variable Configurations for a much more formatted display
+
+    //1 Name of the location, hotel and the optionChoice
+    packChoice = packChoice.charAt(0).toUpperCase() + packChoice.slice(1);
+    hotel = hotel.charAt(0).toUpperCase() + hotel.slice(1);
+    location = location.charAt(0).toUpperCase() + location.slice(1);
+    funTypeChoice = funTypeChoice.charAt(0).toUpperCase() + funTypeChoice.slice(1);
+    paymentOption = paymentOption.charAt(0).toUpperCase() + paymentOption.slice(1);
+
+    //2 Make the funActivities a bit more compact
+    funActivities = funActivities.substring(13); // 13 is the length of "PRICE: €20-> "and so on
+
+    //3 Make the typeInstallmentOption more presentable
+    if (typeInstallmentOption === "months6") {
+        typeInstallmentOption = "6 Months"; 
+    } else if (typeInstallmentOption === "months3") {
+        typeInstallmentOption = "3 Months";
+    }
+
+    
+    
+    
 
     const htmlContent = `
        <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Invoice</title>
+		<title>Invoice for ${name}</title>
 
 		<style>
 			.invoice-box {
@@ -723,8 +847,8 @@ app.get('/generate-invoice', (req, res) => {
 								</td>
 
 								<td>
-									Invoice #: (intentionally blank)<br />
-									Created: (check) January 1, 2023<br />
+									Invoice No.: ${invoiceNumber}<br />
+									Created: ${formattedDate}<br />
 									
 								</td>
 							</tr>
@@ -738,6 +862,7 @@ app.get('/generate-invoice', (req, res) => {
 							<tr>
 								<td>
 									A.S.A.P. Reisebüro International<br />
+                                    Geschäftsführer (Owner): Kai Jander<br />
 									Magdeburgerstraße 50<br />
 									Brandenburg an der Havel, BRB 14770
 								</td>
@@ -752,29 +877,56 @@ app.get('/generate-invoice', (req, res) => {
 
 				
 
-				<tr class="heading"><td>Hotel Booking</td> <td></td></tr>
+				<tr class="heading"><td>Hotel Booking (incl. 19% VAT)</td> <td></td></tr>
 				<tr class="item"><td>Name</td>					<td>${name}</td></tr>
+                <tr class="item"><td>Location of the hotel</td>					<td>${location}</td></tr>
+                <tr class="item"><td>Hotel</td>					<td>${hotel}</td></tr>
+                <tr class="item"><td>Address of the hotel</td>					<td>${hotelAddress}</td></tr>
 				<tr class="item"><td>Package Selected</td>		<td>${packChoice}</td></tr>
 				<tr class="item"><td>Number of Guests</td>		<td>${guests}</td></tr>
 				<tr class="item"><td>Rooms booked</td>			<td>${occupiedRoomList}</td></tr>
 				<tr class="item"><td>Check-in Date</td>			<td>${userDate}</td></tr>
 				<tr class="item"><td>Check-out date</td>		<td>${checkOut}</td></tr>
 				<tr class="item"><td>Number of days</td>		<td>${nights}</td></tr>
-				<tr class="item"><td>Total Price(without discount)</td>		<td>${totalPrice}</td></tr>
+				
 
-				<tr class="heading"><td>Train Booking Details</td> <td></td></tr>
-				<tr class="item"><td>Type of train ticket</td>	<td>${classChoice}</td></tr>
+				<tr class="heading"><td>Train Booking Details (incl. 7% VAT)</td> <td></td></tr>
+				<tr class="item"><td>Type of train ticket</td>	<td>${showClassChoice}</td></tr>
+                <tr class="item"><td>Cost of the train ticket (per guest)</td>	<td>€${showClassPrice}</td></tr>
+                <tr class="item"><td>Nearest Station to the hotel</td>	<td>${station}</td></tr>
 
-				<tr class="heading"><td>Rental Car Details</td> <td></td></tr>
-				<tr class="item"><td>Type of rental car</td>	<td>${carChoice}</td></tr>
+				<tr class="heading"><td>Rental Car Details (incl. 7% VAT)</td> <td></td></tr>
+				<tr class="item"><td>Type of rental car</td>	<td>${showCarChoice}</td></tr>
+                <tr class="item"><td>Rental Car Options</td>	<td>${showCarName}</td></tr>
+                <tr class="item"><td>Price of the rental Car (per day)</td>	<td>€${showCarPrice}</td></tr>
+                
+
+                <tr class="heading"><td>Additional Fun Activities (Additional Prices; incl. 7% VAT)</td> <td></td></tr>
+				<tr class="item"><td>Package Selected</td>	<td>${funTypeChoice}</td></tr>
+                <tr class="item"><td>Provided by</td>	<td>${company}</td></tr>
+                <tr class="item"><td>Provider's Address</td>	<td>${companyAddress}</td></tr>
+                <tr class="item"><td>Provider's Contact</td>	<td>${companyPhone}</td></tr>
+                <tr class="item"><td>Activities Included</td>	<td>${funActivities}</td></tr>
+                
+
+                <tr class="heading"><td>Monthly Installment Options</td> <td></td></tr>
+				<tr class="item"><td>Monthly Installment Duration</td>	<td>${typeInstallmentOption}</td></tr>
+                <tr class="item"><td>Interest Rate</td>	<td>${interest}</td></tr>
+                <tr class="item"><td>Monthly Installment</td>	<td>€${monthlyInstallment}</td></tr>
+
+                <tr class="heading"><td>Payment Checkout Details</td> <td></td></tr>
+                <tr class="item"><td>Total Price(without discount)</td>		<td>€${totalPrice}</td></tr>
+                <tr class="item"><td>Discounted Price (including train ticket and rental car price; see above) </td>		<td>€${discountedPrice}</td></tr>
+                <tr class="item"><td>Additional Prices</td>	<td>€${addPrice}</td></tr>
+				<tr class="item"><td>Mode of Payment</td>	<td>${paymentOption}</td></tr>
 				
 				
 
 
 				<tr class="total">
-					<td>Final Price</td>
+					<td>Final Price (Discounted Price + Additional Prices due to Activities)</td>
 
-					<td>${discountedPrice}</td>
+					<td>€${finalPrice}</td>
 				</tr>
 			</table>
 		</div>
@@ -782,7 +934,7 @@ app.get('/generate-invoice', (req, res) => {
 </html>
     `;
 
-    const fileName = `invoice_${name}.html`;
+    const fileName = `invoice_${invoiceNumber}.html`;
     const filePath = `invoices/${fileName}`;
 
     // Write the HTML content to a file

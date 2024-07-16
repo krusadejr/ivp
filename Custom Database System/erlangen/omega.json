@@ -2,9 +2,9 @@
   "100": {
     "roomtype": "single",
     "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
+    "guest": "Bruce Wayne",
+    "status": "occupied",
+    "checkOut": "2024-07-17"
   },
   "101": {
     "roomtype": "single",

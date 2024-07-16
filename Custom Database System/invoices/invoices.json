@@ -1,0 +1,42 @@
+{
+  "PLEI-BEMO-0001": {
+    "name": "Princess Leia",
+    "location": "berlin",
+    "hotel": "moxy",
+    "packChoice": "pro",
+    "guests": 1,
+    "occupiedRoomList": "[\"100\"]",
+    "noOfRooms": 1,
+    "userDate": "Wed Jul 17 00:00:00 CEST 2024",
+    "checkOut": "Fri Jul 26 00:00:00 CEST 2024",
+    "nights": 9,
+    "totalPrice": "785",
+    "discountedPrice": "706.5",
+    "finalPrice": "726.5",
+    "classChoice": "classTwo",
+    "carChoice": "ecoCar",
+    "funTypeChoice": "silver",
+    "addPrice": "20",
+    "optionChoice": "option1"
+  },
+  "HSOL-BEMO-0001": {
+    "name": "Han Solo",
+    "location": "berlin",
+    "hotel": "moxy",
+    "packChoice": "pro",
+    "guests": 1,
+    "occupiedRoomList": "[\"101\"]",
+    "noOfRooms": 1,
+    "userDate": "Tue Jul 16 00:00:00 CEST 2024",
+    "checkOut": "Wed Jul 17 00:00:00 CEST 2024",
+    "nights": 1,
+    "totalPrice": "105",
+    "discountedPrice": "94.5",
+    "finalPrice": "114.5",
+    "classChoice": "classTwo",
+    "carChoice": "ecoCar",
+    "funTypeChoice": "silver",
+    "addPrice": "20",
+    "optionChoice": "option1"
+  }
+}
