@@ -1,28 +1,28 @@
 {
-    "option1" : {
-        "name" : "5 Star Berlin Travel Guides", 
-        "address" : "Zanderstraße 10, BRB-14770",
-        "phone" : "+49-92345678910",
-        "silver" : {
-            "services" : "City Tour & Berlin Archeological Museum guided tour", 
-            "price" : 20
-        }, 
-        "gold" : {
-            "services" : "City Tour + 2 Museums of choice & Berlin Theater guided Tour", 
-            "price" : 100
+    "option1": {
+        "name": "Hannover Heritage Tours",
+        "address": "Schlossstraße 5, 30159 Hannover",
+        "phone": "+49-51167891011",
+        "silver": {
+            "services": "City Tour & Hannover Historical Museum tour",
+            "price": 40
+        },
+        "gold": {
+            "services": "City Tour + 3 Museums of choice & Hannover Opera House guided Tour",
+            "price": 120
         }
-    }, 
-    "option2" : {
-        "name" : "Charlie Tours", 
-        "address" : "Askanierring 41, BER-13550",
-        "phone" : "+49-88234678910",
-        "silver" : {
-            "services" : "City Tour & Berlin history tour", 
-            "price" : 40
-        }, 
-        "gold" : {
-            "services" : "City Tour, Berlin history & Checkpoint Charlie tour", 
-            "price" : 80
-        }  
+    },
+    "option2": {
+        "name": "Prime Hannover Excursions",
+        "address": "Marktplatz 1, 30159 Hannover",
+        "phone": "+49-51123456789",
+        "silver": {
+            "services": "City Tour & Herrenhausen Gardens tour",
+            "price": 50
+        },
+        "gold": {
+            "services": "City Tour + Herrenhausen Gardens tour (with interiors) & Hannover Royal Palace tour",
+            "price": 105
+        }
     }
 }

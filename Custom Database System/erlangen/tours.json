@@ -1,28 +1,28 @@
 {
     "option1" : {
-        "name" : "5 Star Berlin Travel Guides", 
-        "address" : "Zanderstraße 10, BRB-14770",
-        "phone" : "+49-92345678910",
+        "name" : "Nürnberg Tours and Travels", 
+        "address" : "Burg 17, 90403 Nürnberg",
+        "phone" : "+49-92348978910",
         "silver" : {
-            "services" : "City Tour & Berlin Archeological Museum guided tour", 
-            "price" : 20
+            "services" : "City Tour & Erlangen Archeological Museum tour", 
+            "price" : 35
         }, 
         "gold" : {
-            "services" : "City Tour + 2 Museums of choice & Berlin Theater guided Tour", 
-            "price" : 100
+            "services" : "City Tour + 3 Museums of choice & Nuremberg Theater guided Tour", 
+            "price" : 110
         }
     }, 
     "option2" : {
-        "name" : "Charlie Tours", 
-        "address" : "Askanierring 41, BER-13550",
-        "phone" : "+49-88234678910",
+        "name" : "Kindle Destinations", 
+        "address" : "Hauptmarkt, 90403 Nürnberg",
+        "phone" : "+49-89434678910",
         "silver" : {
-            "services" : "City Tour & Berlin history tour", 
-            "price" : 40
+            "services" : "City Tour & Erlangen Camp tour", 
+            "price" : 45
         }, 
         "gold" : {
-            "services" : "City Tour, Berlin history & Checkpoint Charlie tour", 
-            "price" : 80
+            "services" : "City Tour + Erlangen Camp tour (with interiors) & Erlangen Castle tour", 
+            "price" : 95
         }  
     }
 }

@@ -1,269 +1,199 @@
 {
   "100": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "Han Solo",
-    "status": "occupied",
-    "checkOut": "2024-07-23"
-  },
-  "101": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "Indiana Jones",
     "status": "occupied",
     "checkOut": "2024-07-20"
   },
+  "101": {
+    "roomtype": "single",
+    "price": 40,
+    "guest": "none",
+    "status": "free",
+    "checkOut": "2024-03-19"
+  },
   "102": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "103": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "104": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "105": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "106": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "107": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "108": {
     "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "109": {
     "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "110": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "111": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "112": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "113": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "114": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "115": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "116": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "117": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "118": {
-    "roomtype": "single",
-    "price": 80,
-    "guest": "none",
-    "status": "free",
-    "checkOut": "2024-03-19"
-  },
-  "119": {
-    "roomtype": "single",
-    "price": 80,
+    "price": 40,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "200": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "201": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "202": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "203": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "204": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "205": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "206": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "207": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "208": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "209": {
     "roomtype": "double",
-    "price": 120,
+    "price": 90,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "300": {
     "roomtype": "suite",
-    "price": 250,
+    "price": 200,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "301": {
     "roomtype": "suite",
-    "price": 250,
+    "price": 200,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "302": {
     "roomtype": "suite",
-    "price": 250,
+    "price": 200,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "303": {
     "roomtype": "suite",
-    "price": 250,
+    "price": 200,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "304": {
     "roomtype": "suite",
-    "price": 250,
+    "price": 200,
     "guest": "none",
     "status": "free",
     "checkOut": "2024-03-19"
   },
   "roomDetails": {
-    "hotelAddress": "Marzahniger Straße 41",
-    "noOfRooms": 35,
-    "priceSingle": 80,
-    "priceDouble": 120,
-    "priceSuite": 250
+    "hotelAddress": "Herschelstraße 19, 30159 Hannover",
+    "noOfRooms": 25,
+    "priceSingle": 40,
+    "priceDouble": 90,
+    "priceSuite": 200
   },
   "carOptions": {
     "ecoCar": {
-      "carName": "Honda, Hyundai",
-      "carPrice": 30
+      "carName": "Honda, Volkswagen",
+      "carPrice": 35
     },
     "deluxCar": {
-      "carName": "Audi, Ford",
+      "carName": "Mercedes",
       "carPrice": 100
     }
   },
   "trainTicket": {
-    "station": "Berlin Hauptbahnhof",
-    "classTwo": 30,
-    "classOne": 80
+    "station": "Ernst-August-Platz 1, 30159 Hannover",
+    "classTwo": 45,
+    "classOne": 70
   }
 }

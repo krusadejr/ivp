@@ -601,7 +601,7 @@ app.get('/hotels/:location/tour/travels/guides/options', (req, res) => {
 //PUT_Generating Invoices in the JSON==============================================================================================\
 app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => {
     const filePath = `invoices/invoices.json`; 
-    let { name, location, hotel, packChoice, guests, occupiedRoomList, noOfRooms, userDate, checkOut, nights, totalPrice, discountedPrice, finalPrice, classChoice, carChoice, funTypeChoice, addPrice, optionChoice } = req.body;
+    let { name, location, hotel, hotelAddress, packChoice, guests, occupiedRoomList, noOfRooms, userDate, checkOut, nights, showClassChoice, showClassPrice, station, showCarChoice, showCarName, showCarPrice, funTypeChoice, company, companyAddress, companyPhone, funActivities, typeInstallmentOption, interest, monthlyInstallment, totalPrice, discountedPrice, addPrice, finalPrice, paymentOption } = req.body;
 
     
 
@@ -664,21 +664,33 @@ app.put('/hotels/:location/:hotel/customers/alpha/beta/invoices', (req, res) => 
             name,
             location,
             hotel,
+            hotelAddress,
             packChoice,
-            guests, 
-            occupiedRoomList, 
-            noOfRooms, 
-            userDate, 
-            checkOut, 
-            nights, 
-            totalPrice, 
-            discountedPrice, 
-            finalPrice,
-            classChoice, 
-            carChoice, 
+            guests,
+            occupiedRoomList,
+            noOfRooms,
+            userDate,
+            checkOut,
+            nights,
+            showClassChoice,
+            showClassPrice,
+            station,
+            showCarChoice,
+            showCarName,
+            showCarPrice,
             funTypeChoice,
+            company,
+            companyAddress,
+            companyPhone,
+            funActivities,
+            typeInstallmentOption,
+            interest,
+            monthlyInstallment,
+            totalPrice,
+            discountedPrice,
             addPrice,
-            optionChoice
+            finalPrice,
+            paymentOption,
         };
 
         
