@@ -4,6 +4,8 @@ let app = express();
 let bodyParser = require('body-parser');
 let fs = require('fs'); 
 
+const ipman = "35.233.57.207"; //localhost
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/invoices', express.static(__dirname + '/invoices'));
@@ -956,7 +958,7 @@ app.get('/generate-invoice', (req, res) => {
             return res.status(500).send('Error generating invoice');
         }
         // Respond with the URL of the generated HTML file
-        const fileUrl = `http://localhost:${port}/invoices/${fileName}`;
+        const fileUrl = `http://${ipman}:${port}/invoices/${fileName}`;
         res.send({ url: fileUrl });
     });
 });
