@@ -2,9 +2,9 @@
   "100": {
     "roomtype": "single",
     "price": 40,
-    "guest": "Han Solo",
-    "status": "occupied",
-    "checkOut": "2024-07-20"
+    "guest": "none",
+    "status": "free",
+    "checkOut": "2024-03-19"
   },
   "101": {
     "roomtype": "single",
