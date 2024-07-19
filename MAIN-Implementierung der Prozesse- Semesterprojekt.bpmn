@@ -11,27 +11,28 @@
     <bpmn:textAnnotation id="TextAnnotation_0w2kauk">
       <bpmn:text>Also includes the encoding of the url</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0mys7bv" associationDirection="None" sourceRef="TextAnnotation_0w2kauk" targetRef="Activity_12aco1a" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1bddt62" name="Implementierung Der Prozesse- Projekt" isExecutable="true" camunda:historyTimeToLive="1">
     <bpmn:laneSet id="LaneSet_1hptap1">
       <bpmn:lane id="Lane_19axv2t" name="Servicemitarbeiter (Clerk)">
+        <bpmn:flowNodeRef>Event_1flbnnr</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0hget60</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_172cpgi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_16lz3wo</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ze7wcn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_122wgke</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1ayulwf</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1flbnnr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0hget60</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_172cpgi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0tl4n72</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1radtgp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_056aq9l</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0v606u4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0nokue1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0q38zhv</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_14lv2qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0mwla8c</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_180uyjn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1f9rr7q</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1wpy0v9</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0lm6vpt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0ijjubl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0674t9z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0pc6gwb</bpmn:flowNodeRef>
@@ -49,11 +50,11 @@
         <bpmn:flowNodeRef>Activity_0r4hlk0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_00mkr06</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1sqzh5n</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0nokue1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0q38zhv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_14lv2qn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1562fnw</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12aco1a</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0g3kjt7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0lm6vpt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_15h5crz</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_14mo11j" name="Filialleiter (Owner)">
         <bpmn:flowNodeRef>Activity_0wsffm7</bpmn:flowNodeRef>
@@ -64,6 +65,95 @@
         <bpmn:flowNodeRef>Activity_0hu1p3l</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
+    <bpmn:startEvent id="Event_1flbnnr" name="Process started">
+      <bpmn:outgoing>Flow_1jnzrvy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Event_0hget60" name="Process caught from signal">
+      <bpmn:outgoing>Flow_10bpfnw</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0h1s9l0" signalRef="Signal_0srherv" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_172cpgi" name="Show the cancellation message">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="checkSignal" label="Message from the system:" type="string" defaultValue="The previous process was cancelled; commencing the booking again. " />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10bpfnw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0iwfrjg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1wov1zl" sourceRef="Gateway_1ayulwf" targetRef="Activity_16lz3wo" />
+    <bpmn:sequenceFlow id="Flow_0y8coa2" sourceRef="Activity_16lz3wo" targetRef="Activity_00mkr06" />
+    <bpmn:sequenceFlow id="Flow_069cjur" sourceRef="Activity_0nokue1" targetRef="Gateway_14lv2qn" />
+    <bpmn:sequenceFlow id="Flow_1raw087" sourceRef="Gateway_14lv2qn" targetRef="Gateway_0q38zhv" />
+    <bpmn:sequenceFlow id="Flow_1s9bz4h" name="No" sourceRef="Gateway_0q38zhv" targetRef="Activity_16kutqr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!installmentOption}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_04jntb8" name="Yes" sourceRef="Gateway_0q38zhv" targetRef="Activity_0hu1p3l">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${installmentOption}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0phz434" sourceRef="Activity_0wsffm7" targetRef="Gateway_10sk7o3" />
+    <bpmn:sequenceFlow id="Flow_0obwirh" name="Approved" sourceRef="Gateway_10sk7o3" targetRef="Activity_1f9rr7q">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approveInstallment}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_186o6tb" name="Rejected" sourceRef="Gateway_10sk7o3" targetRef="Activity_1b79ns4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!approveInstallment}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1hnjv85" sourceRef="Activity_01i89ce" targetRef="Gateway_14lv2qn" />
+    <bpmn:sequenceFlow id="Flow_1ua09p4" sourceRef="Activity_180uyjn" targetRef="Gateway_0ijjubl" />
+    <bpmn:sequenceFlow id="Flow_08ef17r" name="Not accepted" sourceRef="Gateway_1tuwrnr" targetRef="Activity_1wpy0v9">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!directPayment}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1jnzrvy" sourceRef="Event_1flbnnr" targetRef="Activity_0g3kjt7" />
+    <bpmn:sequenceFlow id="Flow_0iwfrjg" sourceRef="Activity_172cpgi" targetRef="Activity_0g3kjt7" />
+    <bpmn:sequenceFlow id="Flow_13suvap" sourceRef="Activity_0ze7wcn" targetRef="roomBookingSubprocess" />
+    <bpmn:sequenceFlow id="Flow_1brwkyl" sourceRef="roomBookingSubprocess" targetRef="Gateway_122wgke" />
+    <bpmn:sequenceFlow id="Flow_11bmop3" name="none" sourceRef="Gateway_122wgke" targetRef="trainBookingSubprocess">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'none'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0brlw2f" name="basic" sourceRef="Gateway_122wgke" targetRef="Activity_17q587h">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'basic'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0kodiv0" name="PRO" sourceRef="Gateway_122wgke" targetRef="Activity_0o9rn3f">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'pro'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1sxekya" name="PROMAX" sourceRef="Gateway_122wgke" targetRef="Activity_1uctpj5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'promax'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0gawf5y" sourceRef="Activity_1uctpj5" targetRef="Gateway_1ayulwf" />
+    <bpmn:sequenceFlow id="Flow_1q8dba6" sourceRef="Gateway_056aq9l" targetRef="Gateway_1ayulwf" />
+    <bpmn:sequenceFlow id="Flow_0v1k9h0" sourceRef="Activity_10y5bkp" targetRef="Gateway_1ayulwf" />
+    <bpmn:sequenceFlow id="Flow_0qzprp9" sourceRef="Activity_13p1dpa" targetRef="Gateway_1ayulwf" />
+    <bpmn:sequenceFlow id="Flow_10bpfnw" sourceRef="Event_0hget60" targetRef="Activity_172cpgi" />
+    <bpmn:sequenceFlow id="Flow_16yj0d3" name="Yes" sourceRef="Gateway_1radtgp" targetRef="Activity_0tl4n72">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${TTBookingChoice}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_038lsk5" sourceRef="Activity_0tl4n72" targetRef="Activity_0v606u4" />
+    <bpmn:sequenceFlow id="Flow_1gfxxth" sourceRef="rentalCarBookingSubprocess" targetRef="Gateway_1radtgp" />
+    <bpmn:sequenceFlow id="Flow_0ysxu8i" name="No" sourceRef="Gateway_1radtgp" targetRef="Gateway_056aq9l">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!TTBookingChoice}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1d4415j" sourceRef="Activity_0v606u4" targetRef="Gateway_056aq9l" />
+    <bpmn:sequenceFlow id="Flow_0uglx81" name="Accepted" sourceRef="Gateway_1tuwrnr" targetRef="Activity_01i89ce">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${directPayment}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0f3qkx9" sourceRef="trainBookingSubprocess" targetRef="rentalCarBookingSubprocess" />
+    <bpmn:sequenceFlow id="Flow_1vspqsy" sourceRef="Activity_17q587h" targetRef="Activity_10y5bkp" />
+    <bpmn:sequenceFlow id="Flow_05uchef" sourceRef="Activity_0o9rn3f" targetRef="Activity_13p1dpa" />
+    <bpmn:sequenceFlow id="Flow_0apfgjf" sourceRef="Activity_0r4hlk0" targetRef="Activity_0n3g4zy" />
+    <bpmn:sequenceFlow id="Flow_1mdj14q" sourceRef="Activity_0n3g4zy" targetRef="Activity_1sqzh5n" />
+    <bpmn:sequenceFlow id="Flow_009cbo5" sourceRef="Activity_00mkr06" targetRef="Activity_0r4hlk0" />
+    <bpmn:sequenceFlow id="Flow_07gk3lv" sourceRef="Activity_1b79ns4" targetRef="Gateway_1tuwrnr" />
+    <bpmn:sequenceFlow id="Flow_1hwlkkv" sourceRef="Activity_0vz6ap0" targetRef="Event_0pc6gwb" />
+    <bpmn:sequenceFlow id="Flow_0ew6uyk" sourceRef="Activity_1wpy0v9" targetRef="Activity_15h5crz" />
+    <bpmn:sequenceFlow id="Flow_1d1ltbu" sourceRef="Gateway_0ijjubl" targetRef="Activity_0674t9z" />
+    <bpmn:sequenceFlow id="Flow_1xsjzcg" sourceRef="Activity_1sqzh5n" targetRef="Activity_0nokue1" />
+    <bpmn:sequenceFlow id="Flow_0j7am8d" sourceRef="Activity_0674t9z" targetRef="Activity_1562fnw" />
+    <bpmn:sequenceFlow id="Flow_0d98nut" sourceRef="Activity_1562fnw" targetRef="Activity_12aco1a" />
+    <bpmn:sequenceFlow id="Flow_1xebil3" sourceRef="Activity_12aco1a" targetRef="Activity_0vz6ap0" />
+    <bpmn:sequenceFlow id="Flow_08uimql" sourceRef="Activity_1f9rr7q" targetRef="Activity_0mwla8c" />
+    <bpmn:sequenceFlow id="Flow_0p0js4n" sourceRef="Activity_0mwla8c" targetRef="Activity_180uyjn" />
+    <bpmn:sequenceFlow id="Flow_07u4uyq" sourceRef="Activity_16kutqr" targetRef="Gateway_0ijjubl" />
+    <bpmn:sequenceFlow id="Flow_099684x" sourceRef="Activity_0hu1p3l" targetRef="Activity_0wsffm7" />
     <bpmn:scriptTask id="Activity_16lz3wo" name="Apply the discounts" scriptFormat="javascript">
       <bpmn:incoming>Flow_1wov1zl</bpmn:incoming>
       <bpmn:outgoing>Flow_0y8coa2</bpmn:outgoing>
@@ -96,8 +186,7 @@ execution.setVariable('discountedPrice', tempTotal);</bpmn:script>
           </camunda:formField>
         </camunda:formData>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1jnzrvy</bpmn:incoming>
-      <bpmn:incoming>Flow_0iwfrjg</bpmn:incoming>
+      <bpmn:incoming>Flow_0g7vqux</bpmn:incoming>
       <bpmn:outgoing>Flow_13suvap</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_122wgke" name="Which package had been selected?">
@@ -114,22 +203,6 @@ execution.setVariable('discountedPrice', tempTotal);</bpmn:script>
       <bpmn:incoming>Flow_0qzprp9</bpmn:incoming>
       <bpmn:outgoing>Flow_1wov1zl</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:startEvent id="Event_1flbnnr" name="Process started">
-      <bpmn:outgoing>Flow_1jnzrvy</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:startEvent id="Event_0hget60" name="Process caught from signal">
-      <bpmn:outgoing>Flow_10bpfnw</bpmn:outgoing>
-      <bpmn:signalEventDefinition id="SignalEventDefinition_0h1s9l0" signalRef="Signal_0srherv" />
-    </bpmn:startEvent>
-    <bpmn:userTask id="Activity_172cpgi" name="Show the cancellation message">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="checkSignal" label="Message from the system:" type="string" defaultValue="The previous process was cancelled; commencing the booking again. " />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_10bpfnw</bpmn:incoming>
-      <bpmn:outgoing>Flow_0iwfrjg</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:scriptTask id="Activity_0tl4n72" name="Check Eligibility for the packages" scriptFormat="javascript">
       <bpmn:incoming>Flow_16yj0d3</bpmn:incoming>
       <bpmn:outgoing>Flow_038lsk5</bpmn:outgoing>
@@ -212,7 +285,7 @@ execution.setVariable('packChoice', packChoice);</bpmn:script>
     "guest" : "${name}" ,
     "checkOut" : "${dateOut}" 
 }</camunda:inputParameter>
-                <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
+                <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
                 <camunda:inputParameter name="headers">
                   <camunda:map>
                     <camunda:entry key="Content-Type">application/json</camunda:entry>
@@ -352,7 +425,7 @@ execution.setVariable('dateOut', dateOut);</bpmn:script>
                   </camunda:map>
                 </camunda:inputParameter>
                 <camunda:inputParameter name="method">GET</camunda:inputParameter>
-                <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/${roomChoice}/free?userDate=${formattedDate}</camunda:inputParameter>
+                <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/${roomChoice}/free?userDate=${formattedDate}</camunda:inputParameter>
                 <camunda:outputParameter name="roomList">
                   <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var resobj = JSON.parse(response);
@@ -375,7 +448,7 @@ for (var key in resobj) {
             <camunda:connector>
               <camunda:inputOutput>
                 <camunda:inputParameter name="method">GET</camunda:inputParameter>
-                <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
+                <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
                 <camunda:outputParameter name="roomPrice">
                   <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var resobj = JSON.parse(response);
@@ -605,7 +678,7 @@ execution.setVariable('errorGate', errorGate);</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/info/extra/plus</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/info/extra/plus</camunda:inputParameter>
               <camunda:outputParameter name="roomPrices">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var roomPrices = JSON.parse(response);
@@ -677,7 +750,7 @@ hotelAddress = parser.hotelAddress;</camunda:script>
                   </camunda:map>
                 </camunda:inputParameter>
                 <camunda:inputParameter name="method">GET</camunda:inputParameter>
-                <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/</camunda:inputParameter>
+                <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/</camunda:inputParameter>
                 <camunda:outputParameter name="noOfRoomsServer">
                   <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -943,7 +1016,7 @@ execution.setVariable("station", "None");</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
               <camunda:outputParameter name="classOnePrice">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1079,7 +1152,7 @@ execution.setVariable("deluxCarPrice", 0);
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="carsMessage">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1147,7 +1220,7 @@ execution.setVariable('carChoice', "None");
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
               <camunda:outputParameter name="classOnePrice">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1210,7 +1283,7 @@ execution.setVariable('classChoice', "classTwo");
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="carsMessage">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1266,7 +1339,7 @@ execution.setVariable('carChoice', "ecoCar");</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
               <camunda:outputParameter name="classOnePrice">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1322,7 +1395,7 @@ infoMessage = "IInd Class: €" + parser.classTwo + " &amp; " + "Ist Class: €"
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="carsMessage">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1386,7 +1459,7 @@ execution.setVariable('carChoice', "deluxCar");</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/train/options</camunda:inputParameter>
               <camunda:outputParameter name="classOnePrice">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1442,7 +1515,7 @@ infoMessage = "IInd Class: €" + parser.classTwo + " &amp; " + "Ist Class: €"
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="ecoCarOptions">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1528,7 +1601,7 @@ execution.setVariable('totalPrice', totalPrice + (ecoCarPrice*nights));</bpmn:sc
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="deluxCarOptions">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1623,7 +1696,7 @@ execution.setVariable('totalPrice', totalPrice + deluxCarPrice-ecoCarPrice);</bp
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/occupied/plus?name=${sendingName}</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/occupied/plus?name=${sendingName}</camunda:inputParameter>
               <camunda:outputParameter name="occupiedRoomList">${response}</camunda:outputParameter>
             </camunda:inputOutput>
             <camunda:connectorId>http-connector</camunda:connectorId>
@@ -1658,7 +1731,7 @@ execution.setVariable('sendingName', modifiedName);</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/cars/options</camunda:inputParameter>
               <camunda:outputParameter name="ecoCarPrice">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1823,7 +1896,7 @@ execution.setVariable('companyPhone', companyPhone );</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/tour/travels/guides/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/tour/travels/guides/options</camunda:inputParameter>
               <camunda:outputParameter name="option1Address">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -1888,6 +1961,7 @@ option2Name = parser.option2.name;</camunda:script>
         <bpmn:extensionElements>
           <camunda:formData>
             <camunda:formField id="funChoice" label="Are additional packages desired? (like city tours and guides)" type="boolean" defaultValue="TRUE" />
+            <camunda:formField id="showcase" label="Please visit our website to see our various partners!" type="string" defaultValue="https://krusadejr.github.io/kai-jander-sozusagen/" />
           </camunda:formData>
         </bpmn:extensionElements>
         <bpmn:incoming>Flow_0qqaj6o</bpmn:incoming>
@@ -1973,7 +2047,7 @@ execution.setVariable('addPrice', addPrice);</bpmn:script>
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/tour/travels/guides/options</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/tour/travels/guides/options</camunda:inputParameter>
               <camunda:outputParameter name="option1Silver">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -2157,7 +2231,7 @@ execution.setVariable('funTypeChoice', "None");
               <camunda:inputParameter name="payload">{
     "status": "free"
 }</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
               <camunda:inputParameter name="headers">
                 <camunda:map>
                   <camunda:entry key="Content-Type">application/json</camunda:entry>
@@ -2181,72 +2255,6 @@ execution.setVariable('funTypeChoice', "None");
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${cancellationMessage}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
     </bpmn:subProcess>
-    <bpmn:sequenceFlow id="Flow_1wov1zl" sourceRef="Gateway_1ayulwf" targetRef="Activity_16lz3wo" />
-    <bpmn:sequenceFlow id="Flow_0y8coa2" sourceRef="Activity_16lz3wo" targetRef="Activity_00mkr06" />
-    <bpmn:sequenceFlow id="Flow_069cjur" sourceRef="Activity_0nokue1" targetRef="Gateway_14lv2qn" />
-    <bpmn:sequenceFlow id="Flow_1raw087" sourceRef="Gateway_14lv2qn" targetRef="Gateway_0q38zhv" />
-    <bpmn:sequenceFlow id="Flow_1s9bz4h" name="No" sourceRef="Gateway_0q38zhv" targetRef="Activity_16kutqr">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!installmentOption}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_04jntb8" name="Yes" sourceRef="Gateway_0q38zhv" targetRef="Activity_0hu1p3l">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${installmentOption}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0phz434" sourceRef="Activity_0wsffm7" targetRef="Gateway_10sk7o3" />
-    <bpmn:sequenceFlow id="Flow_0obwirh" name="Approved" sourceRef="Gateway_10sk7o3" targetRef="Activity_1f9rr7q">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approveInstallment}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_186o6tb" name="Rejected" sourceRef="Gateway_10sk7o3" targetRef="Activity_1b79ns4">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!approveInstallment}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1hnjv85" sourceRef="Activity_01i89ce" targetRef="Gateway_14lv2qn" />
-    <bpmn:sequenceFlow id="Flow_1ua09p4" sourceRef="Activity_180uyjn" targetRef="Gateway_0ijjubl" />
-    <bpmn:sequenceFlow id="Flow_08ef17r" name="Not accepted" sourceRef="Gateway_1tuwrnr" targetRef="Activity_1wpy0v9">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!directPayment}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1jnzrvy" sourceRef="Event_1flbnnr" targetRef="Activity_0ze7wcn" />
-    <bpmn:sequenceFlow id="Flow_0iwfrjg" sourceRef="Activity_172cpgi" targetRef="Activity_0ze7wcn" />
-    <bpmn:sequenceFlow id="Flow_13suvap" sourceRef="Activity_0ze7wcn" targetRef="roomBookingSubprocess" />
-    <bpmn:sequenceFlow id="Flow_1brwkyl" sourceRef="roomBookingSubprocess" targetRef="Gateway_122wgke" />
-    <bpmn:sequenceFlow id="Flow_11bmop3" name="none" sourceRef="Gateway_122wgke" targetRef="trainBookingSubprocess">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'none'}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0brlw2f" name="basic" sourceRef="Gateway_122wgke" targetRef="Activity_17q587h">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'basic'}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0kodiv0" name="PRO" sourceRef="Gateway_122wgke" targetRef="Activity_0o9rn3f">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'pro'}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1sxekya" name="PROMAX" sourceRef="Gateway_122wgke" targetRef="Activity_1uctpj5">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${packChoice == 'promax'}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0gawf5y" sourceRef="Activity_1uctpj5" targetRef="Gateway_1ayulwf" />
-    <bpmn:sequenceFlow id="Flow_1q8dba6" sourceRef="Gateway_056aq9l" targetRef="Gateway_1ayulwf" />
-    <bpmn:sequenceFlow id="Flow_0v1k9h0" sourceRef="Activity_10y5bkp" targetRef="Gateway_1ayulwf" />
-    <bpmn:sequenceFlow id="Flow_0qzprp9" sourceRef="Activity_13p1dpa" targetRef="Gateway_1ayulwf" />
-    <bpmn:sequenceFlow id="Flow_10bpfnw" sourceRef="Event_0hget60" targetRef="Activity_172cpgi" />
-    <bpmn:sequenceFlow id="Flow_16yj0d3" name="Yes" sourceRef="Gateway_1radtgp" targetRef="Activity_0tl4n72">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${TTBookingChoice}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_038lsk5" sourceRef="Activity_0tl4n72" targetRef="Activity_0v606u4" />
-    <bpmn:sequenceFlow id="Flow_1gfxxth" sourceRef="rentalCarBookingSubprocess" targetRef="Gateway_1radtgp" />
-    <bpmn:sequenceFlow id="Flow_0ysxu8i" name="No" sourceRef="Gateway_1radtgp" targetRef="Gateway_056aq9l">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!TTBookingChoice}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1d4415j" sourceRef="Activity_0v606u4" targetRef="Gateway_056aq9l" />
-    <bpmn:sequenceFlow id="Flow_0uglx81" name="Accepted" sourceRef="Gateway_1tuwrnr" targetRef="Activity_01i89ce">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${directPayment}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0f3qkx9" sourceRef="trainBookingSubprocess" targetRef="rentalCarBookingSubprocess" />
-    <bpmn:sequenceFlow id="Flow_1vspqsy" sourceRef="Activity_17q587h" targetRef="Activity_10y5bkp" />
-    <bpmn:sequenceFlow id="Flow_05uchef" sourceRef="Activity_0o9rn3f" targetRef="Activity_13p1dpa" />
-    <bpmn:sequenceFlow id="Flow_0apfgjf" sourceRef="Activity_0r4hlk0" targetRef="Activity_0n3g4zy" />
-    <bpmn:sequenceFlow id="Flow_1mdj14q" sourceRef="Activity_0n3g4zy" targetRef="Activity_1sqzh5n" />
-    <bpmn:sequenceFlow id="Flow_009cbo5" sourceRef="Activity_00mkr06" targetRef="Activity_0r4hlk0" />
-    <bpmn:sequenceFlow id="Flow_07gk3lv" sourceRef="Activity_1b79ns4" targetRef="Gateway_1tuwrnr" />
-    <bpmn:sequenceFlow id="Flow_1hwlkkv" sourceRef="Activity_0vz6ap0" targetRef="Event_0pc6gwb" />
-    <bpmn:sequenceFlow id="Flow_0ew6uyk" sourceRef="Activity_1wpy0v9" targetRef="Event_0lm6vpt" />
-    <bpmn:sequenceFlow id="Flow_1d1ltbu" sourceRef="Gateway_0ijjubl" targetRef="Activity_0674t9z" />
-    <bpmn:sequenceFlow id="Flow_1xsjzcg" sourceRef="Activity_1sqzh5n" targetRef="Activity_0nokue1" />
     <bpmn:userTask id="Activity_0nokue1" name="ASK if installments?">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -2270,12 +2278,6 @@ execution.setVariable('funTypeChoice', "None");
       <bpmn:incoming>Flow_1hnjv85</bpmn:incoming>
       <bpmn:outgoing>Flow_1raw087</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0j7am8d" sourceRef="Activity_0674t9z" targetRef="Activity_1562fnw" />
-    <bpmn:sequenceFlow id="Flow_0d98nut" sourceRef="Activity_1562fnw" targetRef="Activity_12aco1a" />
-    <bpmn:sequenceFlow id="Flow_1xebil3" sourceRef="Activity_12aco1a" targetRef="Activity_0vz6ap0" />
-    <bpmn:sequenceFlow id="Flow_08uimql" sourceRef="Activity_1f9rr7q" targetRef="Activity_0mwla8c" />
-    <bpmn:sequenceFlow id="Flow_0p0js4n" sourceRef="Activity_0mwla8c" targetRef="Activity_180uyjn" />
-    <bpmn:sequenceFlow id="Flow_07u4uyq" sourceRef="Activity_16kutqr" targetRef="Gateway_0ijjubl" />
     <bpmn:userTask id="Activity_0wsffm7" name="Do the Bonitätsprüfung">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -2360,9 +2362,6 @@ execution.setVariable('interest' , interest);</bpmn:script>
       <bpmn:incoming>Flow_08ef17r</bpmn:incoming>
       <bpmn:outgoing>Flow_0ew6uyk</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_0lm6vpt" name="Booking Process closed">
-      <bpmn:incoming>Flow_0ew6uyk</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:exclusiveGateway id="Gateway_0ijjubl">
       <bpmn:incoming>Flow_1ua09p4</bpmn:incoming>
       <bpmn:incoming>Flow_07u4uyq</bpmn:incoming>
@@ -2422,7 +2421,7 @@ execution.setVariable('interest' , interest);</bpmn:script>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">PUT</camunda:inputParameter>
               <camunda:inputParameter name="payload">${jsonString}</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/hotels/${location}/${hotel}/customers/alpha/beta/invoices</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/customers/alpha/beta/invoices</camunda:inputParameter>
               <camunda:inputParameter name="headers">
                 <camunda:map>
                   <camunda:entry key="Content-Type">application/json</camunda:entry>
@@ -2528,7 +2527,7 @@ execution.setVariable('jsonString', jsonString);
           <camunda:connector>
             <camunda:inputOutput>
               <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:44000/generate-invoice?${encodedParams}</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://${ipman}:44000/generate-invoice?${encodedParams}</camunda:inputParameter>
               <camunda:outputParameter name="obtainedURL">
                 <camunda:script scriptFormat="javascript">var response = connector.getVariable("response");
 var parser = JSON.parse(response);
@@ -2631,7 +2630,6 @@ execution.setVariable("encodedParams", encodedParams);
 execution.setVariable('interest', "None" );
 execution.setVariable('monthlyInstallment', 0 );</bpmn:script>
     </bpmn:scriptTask>
-    <bpmn:sequenceFlow id="Flow_099684x" sourceRef="Activity_0hu1p3l" targetRef="Activity_0wsffm7" />
     <bpmn:scriptTask id="Activity_0hu1p3l" name="Generate a random credit score" scriptFormat="javascript">
       <bpmn:incoming>Flow_04jntb8</bpmn:incoming>
       <bpmn:outgoing>Flow_099684x</bpmn:outgoing>
@@ -2643,38 +2641,56 @@ let randomCredit = getRandomNumber(730, 900);
 execution.setVariable('randomCredit', randomCredit);
 </bpmn:script>
     </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0g7vqux" sourceRef="Activity_0g3kjt7" targetRef="Activity_0ze7wcn" />
+    <bpmn:scriptTask id="Activity_0g3kjt7" name="Set the server ip variable" scriptFormat="javascript">
+      <bpmn:incoming>Flow_0iwfrjg</bpmn:incoming>
+      <bpmn:incoming>Flow_1jnzrvy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g7vqux</bpmn:outgoing>
+      <bpmn:script>execution.setVariable('ipman', "localhost"); 
+//35.233.57.207 this is the external IP of the google cloud engine server. If it doesn't work then use localhost
+//localhost</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:endEvent id="Event_0lm6vpt" name="Booking Process closed">
+      <bpmn:incoming>Flow_1npdrk0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_15h5crz" name="PUT-Kill the guest in the room">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">PUT</camunda:inputParameter>
+            <camunda:inputParameter name="payload">{
+    "status": "free"
+}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://${ipman}:44000/hotels/${location}/${hotel}/rooms/${roomChoiceMa}</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ew6uyk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1npdrk0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1npdrk0" sourceRef="Activity_15h5crz" targetRef="Event_0lm6vpt" />
+    <bpmn:association id="Association_0mys7bv" associationDirection="None" sourceRef="TextAnnotation_0w2kauk" targetRef="Activity_12aco1a" />
   </bpmn:process>
   <bpmn:signal id="Signal_20e8003" name="restartRoomChoice" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0nyire7">
       <bpmndi:BPMNShape id="Participant_0qvbstq_di" bpmnElement="Participant_0qvbstq" isHorizontal="true">
-        <dc:Bounds x="160" y="60" width="5760" height="1110" />
+        <dc:Bounds x="160" y="60" width="5940" height="1110" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_14mo11j_di" bpmnElement="Lane_14mo11j" isHorizontal="true">
-        <dc:Bounds x="190" y="780" width="5730" height="390" />
+        <dc:Bounds x="190" y="780" width="5910" height="390" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_19axv2t_di" bpmnElement="Lane_19axv2t" isHorizontal="true">
-        <dc:Bounds x="190" y="60" width="5730" height="720" />
+        <dc:Bounds x="190" y="60" width="5910" height="720" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_06wgj1d" bpmnElement="Activity_16lz3wo" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="2270" y="378" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_05wgmps_di" bpmnElement="Activity_0ze7wcn" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="750" y="378" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_122wgke_di" bpmnElement="Gateway_122wgke" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="1155" y="393" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1182" y="352" width="75" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1ayulwf_di" bpmnElement="Gateway_1ayulwf" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="2155" y="393" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0hl2n8v_di" bpmnElement="Event_1flbnnr" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="412" y="322" width="36" height="36" />
@@ -2692,401 +2708,438 @@ execution.setVariable('randomCredit', randomCredit);
         <dc:Bounds x="510" y="450" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_06wgj1d" bpmnElement="Activity_16lz3wo" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="2450" y="378" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05wgmps_di" bpmnElement="Activity_0ze7wcn" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="930" y="378" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_122wgke_di" bpmnElement="Gateway_122wgke" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="1335" y="393" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1362" y="352" width="75" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ayulwf_di" bpmnElement="Gateway_1ayulwf" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="2335" y="393" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12i3vzy_di" bpmnElement="Activity_0tl4n72" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="1810" y="80" width="100" height="80" />
+        <dc:Bounds x="1990" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1radtgp_di" bpmnElement="Gateway_1radtgp" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="1705" y="245" width="50" height="50" />
+        <dc:Bounds x="1885" y="245" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1695" y="302" width="71" height="27" />
+          <dc:Bounds x="1875" y="302" width="71" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_056aq9l_di" bpmnElement="Gateway_056aq9l" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="2155" y="245" width="50" height="50" />
+        <dc:Bounds x="2335" y="245" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07q1702_di" bpmnElement="Activity_0v606u4" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="1960" y="80" width="100" height="80" />
+        <dc:Bounds x="2140" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18783ix_di" bpmnElement="roomBookingSubprocess" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="940" y="378" width="100" height="80" />
+        <dc:Bounds x="1120" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_19rdxw1" bpmnElement="trainBookingSubprocess" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1340" y="230" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_187725i" bpmnElement="rentalCarBookingSubprocess" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="1520" y="230" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_187725i" bpmnElement="rentalCarBookingSubprocess" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="1700" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1srp2sb_di" bpmnElement="Activity_17q587h" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1340" y="378" width="100" height="80" />
+        <dc:Bounds x="1520" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1tjab06_di" bpmnElement="Activity_0o9rn3f" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1340" y="510" width="100" height="80" />
+        <dc:Bounds x="1520" y="510" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_16kgmli_di" bpmnElement="Activity_1uctpj5" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1340" y="650" width="100" height="80" />
+        <dc:Bounds x="1520" y="650" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1moz4nz_di" bpmnElement="Activity_10y5bkp" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1520" y="378" width="100" height="80" />
+        <dc:Bounds x="1700" y="378" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_02uy216" bpmnElement="Activity_13p1dpa" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="1520" y="510" width="100" height="80" />
+        <dc:Bounds x="1700" y="510" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1d52ekt" bpmnElement="Activity_0n3g4zy" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="2800" y="378" width="100" height="80" />
+        <dc:Bounds x="2980" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_07fq63r" bpmnElement="Activity_0r4hlk0" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="2620" y="378" width="100" height="80" />
+        <dc:Bounds x="2800" y="378" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1kmil6j" bpmnElement="Activity_00mkr06" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="2470" y="378" width="100" height="80" />
+        <dc:Bounds x="2650" y="378" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1sv8v2f" bpmnElement="Activity_1sqzh5n" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="2970" y="378" width="100" height="80" />
+        <dc:Bounds x="3150" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_02lz2si_di" bpmnElement="Activity_0nokue1" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="3190" y="378" width="100" height="80" />
+        <dc:Bounds x="3370" y="378" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0q38zhv_di" bpmnElement="Gateway_0q38zhv" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="3475" y="393" width="50" height="50" />
+        <dc:Bounds x="3655" y="393" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3455" y="343" width="89" height="40" />
+          <dc:Bounds x="3635" y="343" width="89" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_14lv2qn_di" bpmnElement="Gateway_14lv2qn" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="3345" y="393" width="50" height="50" />
+        <dc:Bounds x="3525" y="393" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1yapr9s_di" bpmnElement="Activity_0wsffm7" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="3770" y="850" width="100" height="80" />
+        <dc:Bounds x="3950" y="850" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_10sk7o3_di" bpmnElement="Gateway_10sk7o3" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="3955" y="865" width="50" height="50" />
+        <dc:Bounds x="4135" y="865" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3949" y="925" width="63" height="27" />
+          <dc:Bounds x="4129" y="925" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_03j2gf5_di" bpmnElement="Activity_01i89ce" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="3950" y="980" width="100" height="80" />
+        <dc:Bounds x="4130" y="980" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0szzie3_di" bpmnElement="Activity_1b79ns4" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="4260" y="850" width="100" height="80" />
+        <dc:Bounds x="4440" y="850" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_10v01a8_di" bpmnElement="Activity_0mwla8c" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="4430" y="480" width="100" height="80" />
+        <dc:Bounds x="4610" y="480" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0zyl5bx" bpmnElement="Activity_180uyjn" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="4590" y="480" width="100" height="80" />
+        <dc:Bounds x="4770" y="480" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_01d6mmt_di" bpmnElement="Activity_1f9rr7q" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="4260" y="480" width="100" height="80" />
+        <dc:Bounds x="4440" y="480" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1csagzt_di" bpmnElement="Activity_1wpy0v9" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="4410" y="670" width="100" height="80" />
+        <dc:Bounds x="4590" y="670" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0lm6vpt_di" bpmnElement="Event_0lm6vpt" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="4602" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="4579" y="735" width="83" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0ijjubl_di" bpmnElement="Gateway_0ijjubl" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="4615" y="393" width="50" height="50" />
+        <dc:Bounds x="4795" y="393" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1tuwrnr_di" bpmnElement="Gateway_1tuwrnr" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="4285" y="995" width="50" height="50" />
+        <dc:Bounds x="4465" y="995" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4269" y="1055" width="82" height="14" />
+          <dc:Bounds x="4449" y="1055" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_11m67zm" bpmnElement="Activity_0674t9z" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
-        <dc:Bounds x="4800" y="378" width="100" height="80" />
+        <dc:Bounds x="4980" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0pc6gwb_di" bpmnElement="Event_0pc6gwb" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="5802" y="400" width="36" height="36" />
+        <dc:Bounds x="5982" y="400" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5783" y="443" width="74" height="14" />
+          <dc:Bounds x="5963" y="443" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07gg3d2_di" bpmnElement="Activity_0vz6ap0" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
-        <dc:Bounds x="5580" y="378" width="100" height="80" />
+        <dc:Bounds x="5760" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1426ruw" bpmnElement="Activity_1562fnw" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="5220" y="378" width="100" height="80" />
+        <dc:Bounds x="5400" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1g20ox9" bpmnElement="Activity_12aco1a" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="5390" y="378" width="100" height="80" />
+        <dc:Bounds x="5570" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1d299u6_di" bpmnElement="Activity_16kutqr" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="3990" y="378" width="100" height="80" />
+        <dc:Bounds x="4170" y="378" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1lyiucw_di" bpmnElement="Activity_0hu1p3l" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="3530" y="850" width="100" height="80" />
+        <dc:Bounds x="3710" y="850" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d9a56f_di" bpmnElement="Activity_0g3kjt7" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
+        <dc:Bounds x="740" y="378" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lm6vpt_di" bpmnElement="Event_0lm6vpt" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="4962" y="692" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4939" y="735" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0liapkk" bpmnElement="Activity_15h5crz" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="4770" y="670" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1wov1zl_di" bpmnElement="Flow_1wov1zl">
-        <di:waypoint x="2205" y="418" />
-        <di:waypoint x="2270" y="418" />
+        <di:waypoint x="2385" y="418" />
+        <di:waypoint x="2450" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0y8coa2_di" bpmnElement="Flow_0y8coa2">
-        <di:waypoint x="2370" y="418" />
-        <di:waypoint x="2470" y="418" />
+        <di:waypoint x="2550" y="418" />
+        <di:waypoint x="2650" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_069cjur_di" bpmnElement="Flow_069cjur">
-        <di:waypoint x="3290" y="418" />
-        <di:waypoint x="3345" y="418" />
+        <di:waypoint x="3470" y="418" />
+        <di:waypoint x="3525" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1raw087_di" bpmnElement="Flow_1raw087">
-        <di:waypoint x="3395" y="418" />
-        <di:waypoint x="3475" y="418" />
+        <di:waypoint x="3575" y="418" />
+        <di:waypoint x="3655" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1s9bz4h_di" bpmnElement="Flow_1s9bz4h">
-        <di:waypoint x="3525" y="418" />
-        <di:waypoint x="3990" y="418" />
+        <di:waypoint x="3705" y="418" />
+        <di:waypoint x="4170" y="418" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3819" y="391" width="15" height="14" />
+          <dc:Bounds x="3999" y="391" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_04jntb8_di" bpmnElement="Flow_04jntb8">
-        <di:waypoint x="3500" y="443" />
-        <di:waypoint x="3500" y="890" />
-        <di:waypoint x="3530" y="890" />
+        <di:waypoint x="3680" y="443" />
+        <di:waypoint x="3680" y="890" />
+        <di:waypoint x="3710" y="890" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3471" y="528" width="18" height="14" />
+          <dc:Bounds x="3651" y="528" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0phz434_di" bpmnElement="Flow_0phz434">
-        <di:waypoint x="3870" y="890" />
-        <di:waypoint x="3955" y="890" />
+        <di:waypoint x="4050" y="890" />
+        <di:waypoint x="4135" y="890" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0obwirh_di" bpmnElement="Flow_0obwirh">
-        <di:waypoint x="3980" y="865" />
-        <di:waypoint x="3980" y="520" />
-        <di:waypoint x="4260" y="520" />
+        <di:waypoint x="4160" y="865" />
+        <di:waypoint x="4160" y="520" />
+        <di:waypoint x="4440" y="520" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3926" y="683" width="47" height="14" />
+          <dc:Bounds x="4106" y="683" width="47" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_186o6tb_di" bpmnElement="Flow_186o6tb">
-        <di:waypoint x="4005" y="890" />
-        <di:waypoint x="4260" y="890" />
+        <di:waypoint x="4185" y="890" />
+        <di:waypoint x="4440" y="890" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4018" y="863" width="44" height="14" />
+          <dc:Bounds x="4198" y="863" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hnjv85_di" bpmnElement="Flow_1hnjv85">
-        <di:waypoint x="3950" y="1020" />
-        <di:waypoint x="3370" y="1020" />
-        <di:waypoint x="3370" y="443" />
+        <di:waypoint x="4130" y="1020" />
+        <di:waypoint x="3550" y="1020" />
+        <di:waypoint x="3550" y="443" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ua09p4_di" bpmnElement="Flow_1ua09p4">
-        <di:waypoint x="4640" y="480" />
-        <di:waypoint x="4640" y="443" />
+        <di:waypoint x="4820" y="480" />
+        <di:waypoint x="4820" y="443" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08ef17r_di" bpmnElement="Flow_08ef17r">
-        <di:waypoint x="4335" y="1020" />
-        <di:waypoint x="4460" y="1020" />
-        <di:waypoint x="4460" y="750" />
+        <di:waypoint x="4515" y="1020" />
+        <di:waypoint x="4640" y="1020" />
+        <di:waypoint x="4640" y="750" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4467" y="884" width="66" height="14" />
+          <dc:Bounds x="4647" y="884" width="66" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0qcwsvc" bpmnElement="Flow_1jnzrvy">
         <di:waypoint x="448" y="340" />
         <di:waypoint x="660" y="340" />
         <di:waypoint x="660" y="418" />
-        <di:waypoint x="750" y="418" />
+        <di:waypoint x="740" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0iwfrjg_di" bpmnElement="Flow_0iwfrjg">
         <di:waypoint x="610" y="490" />
         <di:waypoint x="660" y="490" />
         <di:waypoint x="660" y="418" />
-        <di:waypoint x="750" y="418" />
+        <di:waypoint x="740" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13suvap_di" bpmnElement="Flow_13suvap">
-        <di:waypoint x="850" y="418" />
-        <di:waypoint x="940" y="418" />
+        <di:waypoint x="1030" y="418" />
+        <di:waypoint x="1120" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1brwkyl_di" bpmnElement="Flow_1brwkyl">
-        <di:waypoint x="1040" y="418" />
-        <di:waypoint x="1155" y="418" />
+        <di:waypoint x="1220" y="418" />
+        <di:waypoint x="1335" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11bmop3_di" bpmnElement="Flow_11bmop3">
-        <di:waypoint x="1180" y="393" />
-        <di:waypoint x="1180" y="270" />
-        <di:waypoint x="1340" y="270" />
+        <di:waypoint x="1360" y="393" />
+        <di:waypoint x="1360" y="270" />
+        <di:waypoint x="1520" y="270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1260" y="243" width="25" height="14" />
+          <dc:Bounds x="1440" y="243" width="25" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0brlw2f_di" bpmnElement="Flow_0brlw2f">
-        <di:waypoint x="1205" y="418" />
-        <di:waypoint x="1340" y="418" />
+        <di:waypoint x="1385" y="418" />
+        <di:waypoint x="1520" y="418" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1259" y="393" width="27" height="14" />
+          <dc:Bounds x="1439" y="393" width="27" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0kodiv0_di" bpmnElement="Flow_0kodiv0">
-        <di:waypoint x="1180" y="443" />
-        <di:waypoint x="1180" y="550" />
-        <di:waypoint x="1340" y="550" />
+        <di:waypoint x="1360" y="443" />
+        <di:waypoint x="1360" y="550" />
+        <di:waypoint x="1520" y="550" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1260" y="523" width="25" height="14" />
+          <dc:Bounds x="1440" y="523" width="25" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1sxekya_di" bpmnElement="Flow_1sxekya">
-        <di:waypoint x="1180" y="443" />
-        <di:waypoint x="1180" y="690" />
-        <di:waypoint x="1340" y="690" />
+        <di:waypoint x="1360" y="443" />
+        <di:waypoint x="1360" y="690" />
+        <di:waypoint x="1520" y="690" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1248" y="663" width="49" height="14" />
+          <dc:Bounds x="1428" y="663" width="49" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0gawf5y_di" bpmnElement="Flow_0gawf5y">
-        <di:waypoint x="1440" y="690" />
-        <di:waypoint x="2180" y="690" />
-        <di:waypoint x="2180" y="443" />
+        <di:waypoint x="1620" y="690" />
+        <di:waypoint x="2360" y="690" />
+        <di:waypoint x="2360" y="443" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1q8dba6_di" bpmnElement="Flow_1q8dba6">
-        <di:waypoint x="2180" y="295" />
-        <di:waypoint x="2180" y="393" />
+        <di:waypoint x="2360" y="295" />
+        <di:waypoint x="2360" y="393" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0v1k9h0_di" bpmnElement="Flow_0v1k9h0">
-        <di:waypoint x="1620" y="418" />
-        <di:waypoint x="2155" y="418" />
+        <di:waypoint x="1800" y="418" />
+        <di:waypoint x="2335" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qzprp9_di" bpmnElement="Flow_0qzprp9">
-        <di:waypoint x="1620" y="550" />
-        <di:waypoint x="2180" y="550" />
-        <di:waypoint x="2180" y="443" />
+        <di:waypoint x="1800" y="550" />
+        <di:waypoint x="2360" y="550" />
+        <di:waypoint x="2360" y="443" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_10bpfnw_di" bpmnElement="Flow_10bpfnw">
         <di:waypoint x="448" y="490" />
         <di:waypoint x="510" y="490" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_16yj0d3_di" bpmnElement="Flow_16yj0d3">
-        <di:waypoint x="1730" y="245" />
-        <di:waypoint x="1730" y="120" />
-        <di:waypoint x="1810" y="120" />
+        <di:waypoint x="1910" y="245" />
+        <di:waypoint x="1910" y="120" />
+        <di:waypoint x="1990" y="120" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1761" y="103" width="18" height="14" />
+          <dc:Bounds x="1941" y="103" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_038lsk5_di" bpmnElement="Flow_038lsk5">
-        <di:waypoint x="1910" y="120" />
-        <di:waypoint x="1960" y="120" />
+        <di:waypoint x="2090" y="120" />
+        <di:waypoint x="2140" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1gfxxth_di" bpmnElement="Flow_1gfxxth">
-        <di:waypoint x="1620" y="270" />
-        <di:waypoint x="1705" y="270" />
+        <di:waypoint x="1800" y="270" />
+        <di:waypoint x="1885" y="270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ysxu8i_di" bpmnElement="Flow_0ysxu8i">
-        <di:waypoint x="1755" y="270" />
-        <di:waypoint x="2155" y="270" />
+        <di:waypoint x="1935" y="270" />
+        <di:waypoint x="2335" y="270" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1762" y="252" width="15" height="14" />
+          <dc:Bounds x="1942" y="252" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1d4415j_di" bpmnElement="Flow_1d4415j">
-        <di:waypoint x="2060" y="120" />
-        <di:waypoint x="2180" y="120" />
-        <di:waypoint x="2180" y="245" />
+        <di:waypoint x="2240" y="120" />
+        <di:waypoint x="2360" y="120" />
+        <di:waypoint x="2360" y="245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0uglx81_di" bpmnElement="Flow_0uglx81">
-        <di:waypoint x="4285" y="1020" />
-        <di:waypoint x="4050" y="1020" />
+        <di:waypoint x="4465" y="1020" />
+        <di:waypoint x="4230" y="1020" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4131" y="1003" width="46" height="14" />
+          <dc:Bounds x="4311" y="1003" width="46" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0f3qkx9_di" bpmnElement="Flow_0f3qkx9">
-        <di:waypoint x="1440" y="270" />
-        <di:waypoint x="1520" y="270" />
+        <di:waypoint x="1620" y="270" />
+        <di:waypoint x="1700" y="270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1vspqsy_di" bpmnElement="Flow_1vspqsy">
-        <di:waypoint x="1440" y="418" />
-        <di:waypoint x="1520" y="418" />
+        <di:waypoint x="1620" y="418" />
+        <di:waypoint x="1700" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_05uchef_di" bpmnElement="Flow_05uchef">
-        <di:waypoint x="1440" y="550" />
-        <di:waypoint x="1520" y="550" />
+        <di:waypoint x="1620" y="550" />
+        <di:waypoint x="1700" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0apfgjf_di" bpmnElement="Flow_0apfgjf">
-        <di:waypoint x="2720" y="418" />
-        <di:waypoint x="2800" y="418" />
+        <di:waypoint x="2900" y="418" />
+        <di:waypoint x="2980" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1mdj14q_di" bpmnElement="Flow_1mdj14q">
-        <di:waypoint x="2900" y="418" />
-        <di:waypoint x="2970" y="418" />
+        <di:waypoint x="3080" y="418" />
+        <di:waypoint x="3150" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_009cbo5_di" bpmnElement="Flow_009cbo5">
-        <di:waypoint x="2570" y="418" />
-        <di:waypoint x="2620" y="418" />
+        <di:waypoint x="2750" y="418" />
+        <di:waypoint x="2800" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07gk3lv_di" bpmnElement="Flow_07gk3lv">
-        <di:waypoint x="4310" y="930" />
-        <di:waypoint x="4310" y="995" />
+        <di:waypoint x="4490" y="930" />
+        <di:waypoint x="4490" y="995" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hwlkkv_di" bpmnElement="Flow_1hwlkkv">
-        <di:waypoint x="5680" y="418" />
-        <di:waypoint x="5802" y="418" />
+        <di:waypoint x="5860" y="418" />
+        <di:waypoint x="5982" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ew6uyk_di" bpmnElement="Flow_0ew6uyk">
-        <di:waypoint x="4510" y="710" />
-        <di:waypoint x="4602" y="710" />
+        <di:waypoint x="4690" y="710" />
+        <di:waypoint x="4770" y="710" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1d1ltbu_di" bpmnElement="Flow_1d1ltbu">
-        <di:waypoint x="4665" y="418" />
-        <di:waypoint x="4800" y="418" />
+        <di:waypoint x="4845" y="418" />
+        <di:waypoint x="4980" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1xsjzcg_di" bpmnElement="Flow_1xsjzcg">
-        <di:waypoint x="3070" y="418" />
-        <di:waypoint x="3190" y="418" />
+        <di:waypoint x="3250" y="418" />
+        <di:waypoint x="3370" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0j7am8d_di" bpmnElement="Flow_0j7am8d">
-        <di:waypoint x="4900" y="418" />
-        <di:waypoint x="5220" y="418" />
+        <di:waypoint x="5080" y="418" />
+        <di:waypoint x="5400" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0d98nut_di" bpmnElement="Flow_0d98nut">
-        <di:waypoint x="5320" y="418" />
-        <di:waypoint x="5390" y="418" />
+        <di:waypoint x="5500" y="418" />
+        <di:waypoint x="5570" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1xebil3_di" bpmnElement="Flow_1xebil3">
-        <di:waypoint x="5490" y="418" />
-        <di:waypoint x="5580" y="418" />
+        <di:waypoint x="5670" y="418" />
+        <di:waypoint x="5760" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08uimql_di" bpmnElement="Flow_08uimql">
-        <di:waypoint x="4360" y="520" />
-        <di:waypoint x="4430" y="520" />
+        <di:waypoint x="4540" y="520" />
+        <di:waypoint x="4610" y="520" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0p0js4n_di" bpmnElement="Flow_0p0js4n">
-        <di:waypoint x="4530" y="520" />
-        <di:waypoint x="4590" y="520" />
+        <di:waypoint x="4710" y="520" />
+        <di:waypoint x="4770" y="520" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_07u4uyq_di" bpmnElement="Flow_07u4uyq">
-        <di:waypoint x="4090" y="418" />
-        <di:waypoint x="4615" y="418" />
+        <di:waypoint x="4270" y="418" />
+        <di:waypoint x="4795" y="418" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_099684x_di" bpmnElement="Flow_099684x">
-        <di:waypoint x="3630" y="890" />
-        <di:waypoint x="3770" y="890" />
+        <di:waypoint x="3810" y="890" />
+        <di:waypoint x="3950" y="890" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g7vqux_di" bpmnElement="Flow_0g7vqux">
+        <di:waypoint x="840" y="418" />
+        <di:waypoint x="930" y="418" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1npdrk0_di" bpmnElement="Flow_1npdrk0">
+        <di:waypoint x="4870" y="710" />
+        <di:waypoint x="4962" y="710" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0mys7bv_di" bpmnElement="Association_0mys7bv">
+        <di:waypoint x="5437" y="315" />
+        <di:waypoint x="5570" y="389" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0eb3uxs_di" bpmnElement="TextAnnotation_0eb3uxs">
         <dc:Bounds x="440" y="610" width="100" height="41" />
@@ -3099,10 +3152,6 @@ execution.setVariable('randomCredit', randomCredit);
       <bpmndi:BPMNEdge id="Association_1obx5ik_di" bpmnElement="Association_1obx5ik">
         <di:waypoint x="539" y="530" />
         <di:waypoint x="498" y="610" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0mys7bv_di" bpmnElement="Association_0mys7bv">
-        <di:waypoint x="5400" y="315" />
-        <di:waypoint x="5425" y="378" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
