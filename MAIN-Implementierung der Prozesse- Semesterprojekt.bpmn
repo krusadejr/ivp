@@ -945,6 +945,10 @@ execution.setVariable('chadMessage', chadMessage);</bpmn:script>
       </bpmn:textAnnotation>
       <bpmn:association id="Association_06wgdb0" associationDirection="None" sourceRef="Activity_0rf8dnu" targetRef="TextAnnotation_1uupema" />
       <bpmn:association id="Association_06hmfj1" associationDirection="None" sourceRef="Activity_1ue1jm1" targetRef="TextAnnotation_11i6ww4" />
+      <bpmn:textAnnotation id="TextAnnotation_08zbddg">
+        <bpmn:text>Error handling, the hotel in the city should correspond to the location</bpmn:text>
+      </bpmn:textAnnotation>
+      <bpmn:association id="Association_0rlycet" associationDirection="None" sourceRef="Activity_0j7gxfw" targetRef="TextAnnotation_08zbddg" />
     </bpmn:subProcess>
     <bpmn:subProcess id="trainBookingSubprocess" name="Book the train">
       <bpmn:incoming>Flow_11bmop3</bpmn:incoming>
@@ -3460,6 +3464,10 @@ execution.setVariable('randomCredit', randomCredit);
         <di:waypoint x="995" y="380" />
         <di:waypoint x="986" y="303" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0rlycet_di" bpmnElement="Association_0rlycet">
+        <di:waypoint x="782" y="380" />
+        <di:waypoint x="762" y="337" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_01gv28c_di" bpmnElement="Flow_01gv28c">
         <di:waypoint x="208" y="420" />
         <di:waypoint x="270" y="420" />
@@ -3604,6 +3612,10 @@ execution.setVariable('randomCredit', randomCredit);
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1uupema_di" bpmnElement="TextAnnotation_1uupema">
         <dc:Bounds x="930" y="233" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_08zbddg_di" bpmnElement="TextAnnotation_08zbddg">
+        <dc:Bounds x="680" y="253" width="100.0000039394464" height="84.33734939759037" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
