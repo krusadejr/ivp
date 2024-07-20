@@ -12,7 +12,7 @@ app.use('/invoices', express.static(__dirname + '/invoices'));
 
 //BASIC CALL__________________________________________________________________________________________
 app.get('/', function(req, res){
-	res.send("This is another server, a kind of a backup and also for testing a few things. ");
+	res.send("This is the app.js server, a kind of a backup and also for testing a few things. ");
 });
 
 //SHOW INFORMATION ABOUT A ROOM______________________________________________________________________________________
